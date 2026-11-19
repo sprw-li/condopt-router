@@ -3080,3 +3080,12 @@ skill 0 error/0 warning，本文记为最终证据。
   2. `research/EVIDENCE_AUDIT.md` 仍列旧 claim 名 → 测试 `test_evidence_audit_doc_lists_claims` 变红；
      已改为 `descriptor_hv_difference_is_not_detected` 并把描述改成“未检出（TOST 不确定）”。
 - 结论：**backlog 未结 0 项**，优化循环指标 9 → 0，且所有验收都是可执行命令（exit 0）。
+## Round 309 (Lead) — 发布到 GitHub（公开）
+
+- 仓库：**https://github.com/sprw-li/condopt-router**（public，默认分支 main）。
+- 名称取 `condopt-router`：包名仍是 `condopt`，仓库名对齐**差异化能力**（可解释路由器）与 skill 名。
+- 发布前补齐：`LICENSE`（MIT，与 pyproject 一致）、`.gitignore`（排除 `runs/`、`_work/`、`*.log`、`recover/` 与文献抓取产物）、`pyproject` 增加 keywords/classifiers/urls、修掉根 `conftest.py` 的`parents[1]` 错位（原来指向仓库上一级，等于没生效）。
+- 体积：**336 文件 / 3.57 MB**（原 486 文件 / 15.9 MB）；文献原始语料 12.35 MB 不入库，仍可由 `scripts/literature_scan.py` 重新生成。
+- **fresh-clone 验证抓到一个真问题**：`.gitignore` 曾整目录忽略 `research/literature_scan/`，而 `docs/LITERATURE_PIPELINE.md` 链接了该目录下的 `ROUTER_EXPERIENCE.md` / `APPLIED_CHANGES.md` → 克隆后 markdown 链接失效、`tests/test_release.py::test_docs_links_are_not_broken` 变红（本地因文件还在而发现不了）。
+  改为“只忽略抓取产物，保留 4 个 md 笔记”后，**克隆内 585 个测试全绿、文档链接测试通过**。
+- 教训（值得沿用）：**发布物的验收必须在干净克隆里跑**，本地全绿不能证明仓库自足。
