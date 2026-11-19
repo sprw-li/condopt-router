@@ -1,0 +1,128 @@
+[
+  {
+    "case": "art_hte_angew2026_auto",
+    "requested_algorithm": "auto",
+    "paper": "Angew. Chem. Int. Ed. 2026, 65, e3129364",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13360563/",
+    "space_size": 30000,
+    "router_algorithm": "bayes",
+    "router_params": {
+      "kernel": "matern52",
+      "length_scale": 0.3,
+      "ard": true,
+      "alpha": 0.0001,
+      "n_initial": 11,
+      "n_candidates": 1024,
+      "acquisition": "ei",
+      "kappa": 2.0,
+      "xi": 0.01,
+      "batch_strategy": "local_penalty",
+      "local_frac": 0.4,
+      "local_sigma": 0.15
+    },
+    "real_seed_points": 4,
+    "measured_seed_yields": [
+      91.0,
+      78.0,
+      77.0,
+      71.0
+    ],
+    "initial_best_measured_yield": 91.0,
+    "iterations": 25,
+    "proposals": 100,
+    "best_proxy_yield": 99.0,
+    "best_condition": {
+      "solvent": "DMF",
+      "photocatalyst": "4CzIPN",
+      "ni_precursor": "Ni(PPh3)2Cl2",
+      "ni_ligand": "4,4'-dimethoxy-2,2'-bpy",
+      "amine": "morpholine"
+    },
+    "proposed_known_best_condition": true,
+    "unique_proposed": 100,
+    "run_dir": "examples\\paper_campaigns\\runs\\art_hte_angew2026"
+  },
+  {
+    "case": "art_hte_angew2026_bayes",
+    "requested_algorithm": "bayes",
+    "paper": "Angew. Chem. Int. Ed. 2026, 65, e3129364",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13360563/",
+    "space_size": 30000,
+    "router_algorithm": "bayes",
+    "router_params": {
+      "kernel": "matern52",
+      "length_scale": 0.3,
+      "ard": true,
+      "alpha": 1e-06,
+      "n_initial": 0,
+      "n_candidates": 1024,
+      "acquisition": "ei",
+      "kappa": 2.0,
+      "xi": 0.01,
+      "batch_strategy": "local_penalty",
+      "local_frac": 0.3,
+      "local_sigma": 0.15
+    },
+    "real_seed_points": 4,
+    "measured_seed_yields": [
+      91.0,
+      78.0,
+      77.0,
+      71.0
+    ],
+    "initial_best_measured_yield": 91.0,
+    "iterations": 25,
+    "proposals": 100,
+    "best_proxy_yield": 99.0,
+    "best_condition": {
+      "solvent": "DMF",
+      "photocatalyst": "4CzIPN",
+      "ni_precursor": "Ni(PPh3)2Cl2",
+      "ni_ligand": "4,4'-dimethoxy-2,2'-bpy",
+      "amine": "morpholine"
+    },
+    "proposed_known_best_condition": true,
+    "unique_proposed": 100,
+    "run_dir": "examples\\paper_campaigns\\runs\\art_hte_angew2026_bayes"
+  },
+  {
+    "case": "thermoset_psdl_chemmater2026",
+    "paper": "Chem. Mater. 2026, 38, 10562-10575",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13718556/",
+    "router_algorithm": "constrained",
+    "router_params": {
+      "kernel": "matern32",
+      "length_scale": 0.3,
+      "ard": true,
+      "alpha": 0.005,
+      "n_initial": 16,
+      "n_candidates": 1024,
+      "acquisition": "ucb",
+      "kappa": 2.5,
+      "xi": 0.01,
+      "batch_strategy": "local_penalty",
+      "local_frac": 0.4,
+      "local_sigma": 0.15,
+      "mc_draws": 128,
+      "constraint_margin": 0.0,
+      "feasibility_threshold": 0.02
+    },
+    "seeds": 6,
+    "iterations": 8,
+    "proposals": 32,
+    "feasible_observations": 38,
+    "best_feasible_score": 0.9511,
+    "best_feasible_condition": {
+      "monomer1": "IDA",
+      "monomer2": "none",
+      "crosslinker": "PEGDA-250",
+      "m2_pct": 5.032487186802759,
+      "xl_pct": 30.994501452399177
+    },
+    "best_feasible_constraints": {
+      "cure_time_s": 6.479560116191934,
+      "delta_T_C": 42.356920813343535
+    },
+    "run_dir": "examples\\paper_campaigns\\runs\\thermoset_psdl_chemmater2026"
+  }
+]

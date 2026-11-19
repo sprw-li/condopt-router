@@ -1,0 +1,485 @@
+{
+  "note": "每个被改动或刻意保持的默认值登记在这里：改动（status=change）需要 >=2 个数据集且方向一致；方向不一致时必须写成 keep 并给出 tradeoff。由 scripts/check_evidence_policy.py 校验。 每条还登记 last_reviewed_round 与 review_every_rounds：超过复核周期未复核会在门禁里提示（--strict 时失败）。",
+  "decisions": [
+    {
+      "key": "confirm_n",
+      "value": "3",
+      "status": "keep",
+      "datasets": [
+        {
+          "name": "branin@budget12",
+          "seeds": 20,
+          "result": "3 次复孔 best 中位数 4.08 vs 2 次 3.33（3 次更好）"
+        },
+        {
+          "name": "mf_constrained@budget20",
+          "seeds": 10,
+          "result": "1-2 次 47.98 vs 3 次 45.21（次数少更好）"
+        },
+        {
+          "name": "branin@budget12@5seeds",
+          "seeds": 5,
+          "result": "confirm_n=1 → 2.36；2 → 2.99；3 与 auto 一致 5.27（交付自查全通过）；默认 3 仍最优"
+        }
+      ],
+      "direction_consistent": false,
+      "tradeoff": "默认 3 在 branin（5 seeds）上最优（5.27，confirm_n=1/2 只有 2.36/2.99），且交付自查全通过；MF+约束上曾出现反向（复孔 1 更快）→ 保持默认 3 并公开 meta.confirm_n 覆盖，不把“更少复孔”写成默认。",
+      "evidence": [
+        "research/CONFIRMATION_BUDGET.md",
+        "docs/DEFAULTS.md"
+      ],
+      "last_reviewed_round": 283,
+      "review_every_rounds": 40,
+      "claim_required": true
+    },
+    {
+      "key": "tiny_budget_policy",
+      "value": "低于建模下限时保留模型类 + 告警（仅 budget<=2 才退回空间填充）",
+      "status": "keep",
+      "datasets": [
+        {
+          "name": "moo_constrained@budget4-8",
+          "seeds": 4,
+          "result": "sobol 仅 1/4 有可行前沿；parego 3-4/4"
+        },
+        {
+          "name": "mf_constrained@budget4-8",
+          "seeds": 4,
+          "result": "constrained 31.7/31.8/42.6 优于 sobol 27.7/37.3/37.3"
+        }
+      ],
+      "direction_consistent": true,
+      "tradeoff": "预算低于建模下限时保留代理并告警（而非一律退化为空间填充）：MOO 约束场景 sobol 仅 1/4 有可行前沿、parego 3–4/4；单目标极小预算则空间填充确实够用。Round 279 复跑 budgets 4/8 复核方向未变。",
+      "evidence": [
+        "research/TINY_BUDGET.md",
+        "docs/ROUTING_POLICY.md"
+      ],
+      "last_reviewed_round": 279,
+      "review_every_rounds": 40,
+      "claim_required": true
+    },
+    {
+      "key": "budget_first_threshold",
+      "value": "60（>=60 建议 budget_first）",
+      "status": "keep",
+      "datasets": [
+        {
+          "name": "mf_constrained@budget12-60",
+          "seeds": 5,
+          "result": "40-60 时 best 90.4/99.3 vs 79.2/83.4，但可交付率 2/5 -> 1/5"
+        },
+        {
+          "name": "sphere2d@budget12-60",
+          "seeds": 5,
+          "result": "40 持平；60 时 budget_first 交付 3/5 vs 5/5"
+        },
+        {
+          "name": "mf_constrained@budget120",
+          "seeds": 1,
+          "result": "默认口径 69/120 停止 vs 跑满 120（ADAPTER_LONG_RUN）"
+        },
+        {
+          "name": "moo_policies@budget40",
+          "seeds": 3,
+          "result": "多目标：budget_first HV +0.8%~1.4%，且交付自查 3/3（单目标的 2/5→1/5 未复现）"
+        },
+        {
+          "name": "budget_40-120@mf_constrained",
+          "seeds": 3,
+          "result": "budget_first 40/60/90/120 上 best 92.9/98.8/100.6/102.2（对照 71.8/65.6/76.9/65.6），交付自查全部通过（旧的 2/5→1/5 由交付口径缺陷造成，已作废）"
+        },
+        {
+          "name": "claim@round303@mid_budget_12",
+          "seeds": 2,
+          "result": "复跑 mid_budget（budgets 12）：两种停止口径在 20 次以下预算上结论一致，claim `mid_budget_policies_agree_below_20` 仍成立"
+        }
+      ],
+      "direction_consistent": true,
+      "tradeoff": "阈值 60 的依据是“预算大时应跑满”。修掉交付检查口径缺陷后，40–120 上预算优先既更优也能交付；此前“预算优先牺牲交付”的结论与“120 异常”均已查明为测量/脚本问题，不是策略问题。",
+      "evidence": [
+        "research/MID_BUDGET.md",
+        "research/ADAPTER_LONG_RUN.md"
+      ],
+      "last_reviewed_round": 303,
+      "review_every_rounds": 40,
+      "claim_required": true
+    },
+    {
+      "key": "cmaes_high_dim",
+      "value": "8-14 维光滑连续选 cmaes（bayes 扣分）",
+      "status": "change",
+      "datasets": [
+        {
+          "name": "rosenbrock10@budget60",
+          "seeds": 3,
+          "result": "cmaes -18.1 vs bayes -155.4"
+        },
+        {
+          "name": "ackley10@budget60",
+          "seeds": 3,
+          "result": "cmaes -2.20 vs bayes -5.01"
+        },
+        {
+          "name": "dim_boundary@6-12",
+          "seeds": 3,
+          "result": "landscape-dependent：Rosenbrock 6/8/10/12 维 cmaes 全胜（6 维 −12.0 vs −33.6）；Ackley 6/8/12 维 bayes 更优，10 维仅打平（+0.08）"
+        },
+        {
+          "name": "rosenbrock10@budget60@round294",
+          "seeds": 3,
+          "result": "复跑 claims：cmaes −2.6995 vs bayes −5.8729（10 维窄谷，cmaes 更好），与“高维 GP 不可靠时用 cmaes 兜底”一致"
+        }
+      ],
+      "direction_consistent": true,
+      "tradeoff": "10 维证据来自 rosenbrock10/ackley10：cmaes −18.1 vs bayes −155.4、−2.20 vs −5.01。但 6–12 维扫描显示这是**地貌依赖**而非纯维度决定：窄谷型 6 维起就该 cmaes，多峰型 6/8/12 维 bayes 更优。规则保留为“高维 GP 不可靠”的兜底，已知窄谷问题时用户可显式选 cmaes（见 research/DIM_BOUNDARY.md）。",
+      "evidence": [
+        "docs/SCENARIOS.md",
+        "research/ROUTER_CALIBRATION_NEW_BENCHMARKS.md"
+      ],
+      "last_reviewed_round": 294,
+      "review_every_rounds": 40,
+      "claim_required": true
+    },
+    {
+      "key": "mfparego_multi_fidelity_moo",
+      "value": "多保真 + 2 目标（含约束）选 mfparego",
+      "status": "change",
+      "datasets": [
+        {
+          "name": "mf_moo@budget30",
+          "seeds": 3,
+          "result": "mfparego 674.5 vs momfbo 669.5（可行 HV，2 目标无约束）"
+        },
+        {
+          "name": "mf_moo@two settings",
+          "seeds": 1,
+          "result": "672.3/676.1 vs momfbo 666.2/670.3"
+        },
+        {
+          "name": "mf_moo_constrained",
+          "seeds": 1,
+          "result": "642.5 vs 635.6"
+        },
+        {
+          "name": "mf_moo3@three objectives",
+          "seeds": 1,
+          "result": "27399 vs 26869"
+        },
+        {
+          "name": "mf_moo@budget30@3seeds@round286",
+          "seeds": 3,
+          "result": "复测：mfparego 可行 HV 670.72（26.3 可行全保真点）vs momfbo 666.22（24.3），同成本 30 → 默认保持 mfparego 仍成立"
+        },
+        {
+          "name": "mf_moo@budget30@after_momfbo_weight_fix",
+          "seeds": 3,
+          "result": "修掉 momfbo“EI incumbent 用均匀权重”的不一致后：momfbo 666.22 → **669.88**（+0.55%），mfparego 670.72 仍略优 → 默认保持 mfparego"
+        }
+      ],
+      "direction_consistent": true,
+      "tradeoff": "mfparego 在 mf_moo（budget 30，3 seeds）上 670.72 vs momfbo 669.88 —— 差距仅 0.12%，在噪声内，属“不落后”而非“显著更好”；momfbo 的 EI incumbent 权重不一致已修（曾把 666.22 压低），修复后两者基本持平，默认保持 mfparego（全保真点更多：26.3 vs 25.3）。 注意：A2 的权重一致性修复在 **mf_moo 上 +0.55%（666.22→669.88），在 mf_moo3 上 −0.4%（momfbo 26997.8→26891.5）**——方向不一致且在噪声内，所以该修复的依据是**数学一致性**（incumbent 必须与拟合目标同尺度），不是性能提升。",
+      "evidence": [
+        "research/ROUTER_CALIBRATION_NEW_BENCHMARKS.md",
+        "docs/DEFAULTS.md"
+      ],
+      "last_reviewed_round": 303,
+      "review_every_rounds": 40,
+      "claim_required": true
+    },
+    {
+      "key": "descriptor_features",
+      "value": "存在物理描述符时优先 GP 类",
+      "status": "change",
+      "datasets": [
+        {
+          "name": "tier_c_solvent",
+          "seeds": 1,
+          "result": "bayes 92.02 vs one-hot 91.86"
+        },
+        {
+          "name": "tpe_with_descriptors",
+          "seeds": 1,
+          "result": "TPE + 描述符 84.07 vs one-hot 90.22（更差）"
+        },
+        {
+          "name": "mf_solvent_desc@budget40",
+          "seeds": 3,
+          "result": "多保真多目标上中性：momfbo 1195.3→1192.0、mfparego 1196.1→1196.6（<0.5%）"
+        },
+        {
+          "name": "solvent_constrained@budget40@feasibility",
+          "seeds": 2,
+          "result": "最优值近中立（constrained 90.331→90.359；tpe 83.790→84.026），但可行率大幅提高（0.538→0.875；0.138→0.475）→ 价值可能在交付证据而非最优值"
+        },
+        {
+          "name": "solvent_constrained@5seeds@encoding",
+          "seeds": 5,
+          "result": "描述符只对约束感知算法有益：constrained 可行率 0.550→0.875（最优值不变）；bayes 最优值 −3.0%、可行率 0.285→0.150（更差）；tpe 可行率升但最优值 −9.2%（权衡）"
+        },
+        {
+          "name": "moo_solvent_constrained@cqehvi",
+          "seeds": 3,
+          "result": "MOO+约束：可行 HV 1060.28→1045.07（−1.4%，噪声内），可行点 29.7→37.0（+25%）"
+        },
+        {
+          "name": "noise_floor@moo_solvent_constrained",
+          "seeds": 5,
+          "result": "配对检验：平均差 −3.63（−0.34%）、sd 11.52、t=−0.704（临界 2.776）→ HV 差异未超出噪声底（逐种子差 sd ≈ 11.5 HV ≈ 1.1%）"
+        }
+      ],
+      "direction_consistent": true,
+      "tradeoff": "描述符改变的是**覆盖**而非**最好值**：单目标约束场景可行率 0.550→0.875（最优值不变）；MOO+约束场景可行点 +25% 但可行 HV −1.4%（噪声内）。必须在约束感知算法（constrained/cqehvi）上使用；约束盲算法更差（bayes 可行率 0.285→0.150、最优值 −3%）。 噪声底已测量（5 seeds 配对）：HV 差异 t=−0.704 不显著；3 seeds 只能分辨约 ±19 HV（≈1.8%）。",
+      "evidence": [
+        "research/DESCRIPTOR_FEATURES.md",
+        "research/NEGATIVE_RESULTS.md"
+      ],
+      "last_reviewed_round": 298,
+      "review_every_rounds": 40,
+      "claim_required": true
+    },
+    {
+      "key": "transfer_reliability_grading",
+      "value": ">=0.8 trust / 0.5-0.8 suspect / <0.5 avoid；低置信度一律降级",
+      "status": "keep",
+      "datasets": [
+        {
+          "name": "synthetic_bad_sources",
+          "seeds": 3,
+          "result": "一致源 1.0，shuffled/flipped 0.3-0.6"
+        },
+        {
+          "name": "real_art_splits",
+          "seeds": 20,
+          "result": "n=3 时无排序能力（0.44 vs 0.65），confidence=low 20/20"
+        },
+        {
+          "name": "reliability_band@1prior",
+          "seeds": 3,
+          "result": "四档 reliability 结果相同（68.15）；warm 比 cold 低 2.94"
+        },
+        {
+          "name": "reliability_band@3priors",
+          "seeds": 3,
+          "result": "四档 reliability 结果相同（55.41）；warm 比 cold 高 0.54（+1.0%）"
+        },
+        {
+          "name": "single_fidelity_source@top_k5",
+          "seeds": 2,
+          "result": "cold 49.03；r=1.0/0.7 → 93.89（+44.9）；r=0.4 → 88.29（+39.3，损失 5.6）"
+        },
+        {
+          "name": "audit_calibration@ackley10",
+          "seeds": 2,
+          "result": "相同源审计 0.60、轻微噪声 0.65、有偏源 0.65（却 −0.54）、打乱源 0.30 → 审计对中等偏差无分辨力，低置信度不得给 1.0"
+        },
+        {
+          "name": "audit_fine_grid@ackley10",
+          "seeds": 2,
+          "result": "偏差 0/−3/−6/−9/−12/−18 下审计分在同一 seed 内完全相同（1.0 或 0.6），而收益从 +2.49 翻到 −0.51 → 审计对偏差大小天然盲，只能当一票否决器"
+        }
+      ],
+      "direction_consistent": true,
+      "tradeoff": "机制已修（mfbo 逐点 alpha：1e-4 → 0.5）并在**有功效**的实验中可观测：单保真源 top_k=5 时，r=1.0/0.7 得 +44.9，r=0.4 掉到 +39.3（少 5.6 分）。旧“不敏感”结论因 band 基准只能导入 1 条先验而作废。规则：好源用高 reliability，坏源打折或减少 top_k，低置信度不作结论。 审计阈值校准（AUDIT_CALIBRATION.md）：6 条目标观测时有偏源仍得 0.65，故低置信度审计的建议值封顶 0.6。",
+      "evidence": [
+        "research/TRANSFER_AUDIT.md",
+        "research/NEGATIVE_RESULTS.md"
+      ],
+      "last_reviewed_round": 284,
+      "review_every_rounds": 40,
+      "claim_required": true
+    },
+    {
+      "key": "constrained_single_objective",
+      "value": "单目标 + 硬约束选 constrained（约束感知算法）",
+      "status": "change",
+      "datasets": [
+        {
+          "name": "solvent_constrained@budget40",
+          "seeds": 2,
+          "result": "constrained 90.39 vs bayes 84.7（可行最优）"
+        },
+        {
+          "name": "noisy_constraint_benchmarks",
+          "seeds": 3,
+          "result": "σ=3/6 下 constrained 638.2/635.0 vs cqnehvi/其他 631.3/625.6"
+        },
+        {
+          "name": "constraint_hard@budget30",
+          "seeds": 3,
+          "result": "constrained 92.97（3/3 有可行点）vs bayes 87.80（仅 1/3）vs random 78.11"
+        },
+        {
+          "name": "constraint_easy@budget30",
+          "seeds": 3,
+          "result": "约束不绑定时两者持平（94.99 vs 95.00）"
+        }
+      ],
+      "direction_consistent": true,
+      "tradeoff": "硬/绑定约束下 constrained 明显更好（溶剂 90.39 vs 84.7；硬可行域 92.97 vs 87.80，且 bayes 2/3 运行找不到可行点）；约束不绑定时两者持平 -> 规则只承诺“有硬约束时用它”。带噪约束 2 目标上 cqnehvi 无收益（NEGATIVE_RESULTS §1），那是另一条规则。",
+      "last_reviewed_round": 276,
+      "review_every_rounds": 40,
+      "evidence": [
+        "research/DESCRIPTOR_FEATURES.md",
+        "research/NEGATIVE_RESULTS.md"
+      ],
+      "claim_required": true
+    },
+    {
+      "key": "stagnation_retune",
+      "value": "停滞时调参继续（retune_for_exploration）优于直接停止",
+      "status": "change",
+      "datasets": [
+        {
+          "name": "rosenbrock10@budget40",
+          "seeds": 2,
+          "result": "tune −205.4 vs stop −373.7"
+        },
+        {
+          "name": "stagnation_sweep",
+          "seeds": 3,
+          "result": "探索重启最差；patience=3 最优（−324.7 vs −335.8）"
+        },
+        {
+          "name": "mf_constrained@budget80",
+          "seeds": 3,
+          "result": "tune 101.92 vs stop 101.06（+0.85%），但多用 28% 预算（79.3 vs 61.7 次观测）"
+        },
+        {
+          "name": "mf_constrained@budget80@triggers",
+          "seeds": 2,
+          "result": "四臂 best 相同（101.892），机制确已触发（retunes=1 / restarts=3）；stop 臂只用 71/80 次观测 → 支持“停滞即停”默认，tune 的 +0.85% 未复现"
+        }
+      ],
+      "direction_consistent": true,
+      "tradeoff": "停滞处理的价值主要在**预算**而非最优值：budget 80 上 stop 用 71/80 次达到同样结果；归档里 tune 的 +0.85% 在 2 seeds 复跑中未复现（差异不稳定），故保持默认停滞即停，把 tune/explore 作为可选项而非默认。",
+      "last_reviewed_round": 291,
+      "review_every_rounds": 40,
+      "evidence": [
+        "research/STAGNATION_TUNING.md",
+        "research/NEGATIVE_RESULTS.md"
+      ],
+      "claim_required": true
+    },
+    {
+      "key": "delivery_evidence_policy",
+      "value": "约束/多保真场景交付必须带可行的最终保真证据；单目标带确认复孔",
+      "status": "change",
+      "datasets": [
+        {
+          "name": "moo_constrained_progress",
+          "seeds": 1,
+          "result": "可行 HV 80.94 vs raw 143.03（raw 会高估交付价值）"
+        },
+        {
+          "name": "mf_constrained_full_fidelity",
+          "seeds": 3,
+          "result": "启用交付证据后 has_feasible_full_rate 0.40 → 1.00"
+        },
+        {
+          "name": "delivery_checklist@4shapes",
+          "seeds": 3,
+          "result": "无约束 MOO / 多保真 MOO / 约束 MOO / 单目标四种形态交付自查均 3/3（合计 12/12）"
+        },
+        {
+          "name": "delivery_checklist@4shapes@budget24",
+          "seeds": 2,
+          "result": "四种形态（无约束 MOO / MF MOO / 约束 MOO / 单目标）交付自查 8/8 通过"
+        }
+      ],
+      "direction_consistent": true,
+      "tradeoff": "为交付证据保留最多 1 次评估（budget-first 实测 29/30 等），换来自查通过；四种形态（含无约束 MOO 与单目标复孔分支）实测 12/12，说明策略不依赖约束场景。",
+      "last_reviewed_round": 291,
+      "review_every_rounds": 40,
+      "evidence": [
+        "research/NEGATIVE_RESULTS.md",
+        "docs/EXECUTOR_ADAPTER.md"
+      ],
+      "claim_required": true
+    },
+    {
+      "key": "noise_policy",
+      "value": "高噪声 -> 复孔 3 + 批量 <=6 + 随机基线臂；不默认切 UCB/大 alpha",
+      "status": "keep",
+      "datasets": [
+        {
+          "name": "mixed_reaction@noise0",
+          "seeds": 2,
+          "result": "EI 101.90 > 随机 98.21 > UCB+kappa8 96.61"
+        },
+        {
+          "name": "mixed_reaction@noise5",
+          "seeds": 2,
+          "result": "EI+alpha1 100.09 ≈ EI 99.61 > 随机 98.21 > UCB 95.74"
+        },
+        {
+          "name": "mixed_reaction@noise12",
+          "seeds": 2,
+          "result": "EI 99.66 > 随机 98.21 > EI+alpha1 97.70 > UCB 95.74"
+        },
+        {
+          "name": "suzuki_like@noise0/5/12",
+          "seeds": 2,
+          "result": "EI 95.99/83.62/93.94 > 随机 76.30 > UCB 64.41（EI 三个噪声下都最稳）"
+        },
+        {
+          "name": "hartmann3@noise0/5/12",
+          "seeds": 2,
+          "result": "**反向**：UCB -0.0001/-0.0002/-0.0002 优于 EI -0.0004/-0.0571/-0.1707"
+        }
+      ],
+      "direction_consistent": false,
+      "tradeoff": "取决于地形：混合/离散型（mixed_reaction、suzuki_like）上默认 EI 最稳、UCB+大 kappa 明显更差；光滑低维（hartmann3）上 UCB 反而更好、EI 随噪声退化。因此建议是“**不默认切 UCB，先做 A/B**”，而不是“禁止 UCB”；无论哪种地形，复孔 + 小批量 + 随机基线臂都成立（这也是唯一方向一致的结论）。",
+      "last_reviewed_round": 275,
+      "review_every_rounds": 40,
+      "evidence": [
+        "research/NOISE_POLICY.md",
+        "research/EVIDENCE_POLICY.md"
+      ]
+    },
+    {
+      "key": "transfer_top_k",
+      "value": "好源 top_k 1–3 起步，可按 audit 分级放大；坏源保持 1–3（负迁移随 k 增大）",
+      "status": "keep",
+      "datasets": [
+        {
+          "name": "mf_constrained@top_k_sweep",
+          "seeds": 5,
+          "result": "修复平台期 bug 后：cold 73.81，k=1 79.83(+6.0)，k=3 81.10(+7.3)，k=8 82.98(+9.2)"
+        },
+        {
+          "name": "rosenbrock10@bad_source_sweep",
+          "seeds": 3,
+          "result": "坏源上负迁移随 top_k 放大（k=1 −369 -> k=8 −1190，见 TRANSFER_BENCHMARK）"
+        },
+        {
+          "name": "mf_constrained@cost_budget24",
+          "seeds": 4,
+          "result": "有硬成本预算时暖启动反而略差：none 39.87 vs full 34.05 / with_low 34.82（先验计入成本，挤占本地全保真验证）"
+        },
+        {
+          "name": "staged_transfer@ackley10",
+          "seeds": 2,
+          "result": "有偏源：staged +0.71（否决 2/2）vs fixed_k3 −1.54 / fixed_k5 −0.33；好源：staged +1.85 ≈ fixed_k5 +1.85，fixed_k3 +2.14 → 扩大 top_k 无额外收益"
+        },
+        {
+          "name": "veto_threshold_sweep@ackley10",
+          "seeds": 2,
+          "result": "否决线 0.2 → 有偏源未被否决、Δ −0.53；0.4/0.6 → 有偏源被否（+0.71）且好源不被否；≥0.8 → 好源也被否（机制退化为永不放大）"
+        },
+        {
+          "name": "staged_transfer@discrete_catalyst",
+          "seeds": 4,
+          "result": "有偏源 0/4 被审计否决 → 分阶段 −1.03，差于 fixed_k1 −0.32 / k3 −0.52 / k5 −0.38；打折放大（staged_soft）−1.04 无改善"
+        }
+      ],
+      "direction_consistent": false,
+      "tradeoff": "方向取决于**审计能否否决坏源**：ackley10 上有偏源 2/2 被否决 → 分阶段 +0.71（优于固定 k3/k5）；discrete_catalyst 上 0/4 被否决 → 分阶段 −1.03（差于所有固定臂）。因此 API 保留但不再声称普适优势；拿不准源质量时保持 top_k=1（跨两个问题最稳）。",
+      "last_reviewed_round": 290,
+      "review_every_rounds": 40,
+      "evidence": [
+        "research/TRANSFER_TOP_K.md",
+        "research/TRANSFER_BENCHMARK.md"
+      ]
+    }
+  ]
+}

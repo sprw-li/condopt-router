@@ -1,0 +1,282 @@
+{
+  "algorithm": "cqehvi",
+  "actions": [
+    {
+      "action": "ask",
+      "ask_n": 4,
+      "suggested": [
+        "calibrate_spec",
+        "ask_next_batch"
+      ]
+    },
+    {
+      "action": "tell",
+      "ask_n": null,
+      "suggested": [
+        "tell",
+        "calibrate_spec"
+      ]
+    },
+    {
+      "action": "ask",
+      "ask_n": 4,
+      "suggested": [
+        "calibrate_spec",
+        "review_spec",
+        "ask_next_batch"
+      ]
+    },
+    {
+      "action": "tell",
+      "ask_n": null,
+      "suggested": [
+        "tell",
+        "calibrate_spec",
+        "review_spec"
+      ]
+    },
+    {
+      "action": "ask",
+      "ask_n": 4,
+      "suggested": [
+        "calibrate_spec",
+        "review_spec",
+        "ask_next_batch"
+      ]
+    },
+    {
+      "action": "tell",
+      "ask_n": null,
+      "suggested": [
+        "tell",
+        "calibrate_spec",
+        "review_spec"
+      ]
+    },
+    {
+      "action": "confirm",
+      "ask_n": null,
+      "suggested": [
+        "calibrate_spec"
+      ]
+    },
+    {
+      "action": "tell",
+      "ask_n": null,
+      "suggested": [
+        "tell",
+        "calibrate_spec"
+      ]
+    },
+    {
+      "action": "confirm",
+      "ask_n": null,
+      "suggested": [
+        "replicate_on_new_plate",
+        "use_plate_adjusted_recommendation",
+        "calibrate_spec"
+      ]
+    },
+    {
+      "action": "tell",
+      "ask_n": null,
+      "suggested": [
+        "tell",
+        "replicate_on_new_plate",
+        "use_plate_adjusted_recommendation",
+        "calibrate_spec"
+      ]
+    },
+    {
+      "action": "stop",
+      "ask_n": null,
+      "suggested": [
+        "replicate_on_new_plate",
+        "use_plate_adjusted_recommendation",
+        "calibrate_spec"
+      ]
+    }
+  ],
+  "decision": {
+    "selection_basis": "pareto_spec_plate_adjusted",
+    "score": -1.0727348055690527,
+    "in_spec": false,
+    "raw_in_spec": false,
+    "plate_effect_detected": true,
+    "spec_check": {
+      "raw_in_spec": false,
+      "adjusted_in_spec": false,
+      "changed_by_plate": false
+    },
+    "knee_weights": {},
+    "forked_from": null,
+    "explain": [
+      "观测 20 条，剩余预算 0 次",
+      "推荐依据: pareto_spec_plate_adjusted",
+      "检测到板效应（E_MPa, elongation_pct），推荐值已按板效应校正",
+      "规格符合性: ✗ out-of-spec",
+      "确认复孔: n=2 mean=-0.472735 std=0",
+      "停止条件: 预算已用尽"
+    ]
+  },
+  "pareto": {
+    "n_front": 7,
+    "front": [
+      {
+        "x": {
+          "monomer1": "BCOE",
+          "monomer2": "none",
+          "crosslinker": "DEGDMA",
+          "m2_pct": 0.0,
+          "xl_pct": 12.6
+        },
+        "y": -2.0944,
+        "objectives": {
+          "E_MPa": 2.512,
+          "elongation_pct": 127.36
+        },
+        "source": "paper_seed"
+      },
+      {
+        "x": {
+          "monomer1": "IBOA",
+          "monomer2": "none",
+          "crosslinker": "ETPTA",
+          "m2_pct": 18.632652070373297,
+          "xl_pct": 40.58455009944737
+        },
+        "y": -1.0727348055690527,
+        "objectives": {
+          "E_MPa": 9.170146011933685,
+          "elongation_pct": 48.18162986077368
+        },
+        "source": "paper_proxy"
+      },
+      {
+        "x": {
+          "monomer1": "2-HEA",
+          "monomer2": "BCOE",
+          "crosslinker": "PEGDA-250",
+          "m2_pct": 15.113192237913609,
+          "xl_pct": 7.077988795936108
+        },
+        "y": -1.803632627427578,
+        "objectives": {
+          "E_MPa": 4.424924616701901,
+          "elongation_pct": 120.09081568568945
+        },
+        "source": "paper_proxy"
+      },
+      {
+        "x": {
+          "monomer1": "IBOA",
+          "monomer2": "BCOE",
+          "crosslinker": "DEGDMA",
+          "m2_pct": 21.324826621410725,
+          "xl_pct": 25.954924324799507
+        },
+        "y": -0.7465242378112277,
+        "objectives": {
+          "E_MPa": 7.521215052082994,
+          "elongation_pct": 93.66310594528069
+        },
+        "source": "paper_proxy"
+      },
+      {
+        "x": {
+          "monomer1": "IBOA",
+          "monomer2": "IBOA",
+          "crosslinker": "PEGDA-250",
+          "m2_pct": 18.066946417093277,
+          "xl_pct": 1.688958890736103
+        },
+        "y": -1.1054183021187782,
+        "objectives": {
+          "E_MPa": 4.593009798973799,
+          "elongation_pct": 102.63545755296946
+        },
+        "source": "paper_proxy"
+      },
+      {
+        "x": {
+          "monomer1": "2-HEA",
+          "monomer2": "IDA",
+          "crosslinker": "ETPTA",
+          "m2_pct": 35.68660566348132,
+          "xl_pct": 49.025984193790656
+        },
+        "y": -1.5454551148522768,
+        "objectives": {
+          "E_MPa": 9.561551131572285,
+          "elongation_pct": 36.36362212869308
+        },
+        "source": "paper_proxy"
+      },
+      {
+        "x": {
+          "monomer1": "IBOA",
+          "monomer2": "BCOE",
+          "crosslinker": "DEGDMA",
+          "m2_pct": 21.324826621410725,
+          "xl_pct": 25.954924324799507
+        },
+        "y": -1.9465242378112277,
+        "objectives": {
+          "E_MPa": 2.5212150520829937,
+          "elongation_pct": 123.66310594528069
+        },
+        "source": "paper_proxy"
+      }
+    ],
+    "hypervolume": 424.35984127112744,
+    "reference_point": [
+      2.1595224434213858,
+      31.813803235127736
+    ]
+  },
+  "spec": {
+    "goals": [
+      {
+        "metric": "elongation_pct",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 75.0,
+        "tolerance": 8.0,
+        "scale": 25.0
+      }
+    ],
+    "constraints": {},
+    "n": 20,
+    "in_spec": 2,
+    "best": {
+      "in_spec": false,
+      "goals": {
+        "elongation_pct": {
+          "value": 36.36362212869308,
+          "mode": "target",
+          "target": 75.0,
+          "low": null,
+          "high": null,
+          "in_spec": false,
+          "score": -1.5454551148522768
+        }
+      },
+      "constraints": {}
+    },
+    "recommended": {
+      "selection_basis": "pareto_spec_plate_adjusted",
+      "score": -1.0727348055690527,
+      "in_spec": false,
+      "raw_in_spec": false,
+      "plate_effect_detected": true,
+      "spec_check": {
+        "raw_in_spec": false,
+        "adjusted_in_spec": false,
+        "changed_by_plate": false
+      },
+      "knee_weights": {},
+      "forked_from": null
+    }
+  },
+  "run_dir": "examples\\paper_campaigns\\runs\\thermoset_combined_decision"
+}

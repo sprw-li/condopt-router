@@ -1,0 +1,18 @@
+{
+  "objective": {"name": "yield", "direction": "max"},
+  "variables": [
+    {"name": "T", "kind": "continuous", "low": 40, "high": 120, "unit": "degC"},
+    {"name": "time", "kind": "continuous", "low": 5, "high": 120, "unit": "min"},
+    {"name": "conc", "kind": "log", "low": 0.02, "high": 1.0, "unit": "M"},
+    {"name": "solvent", "kind": "categorical", "choices": ["MeCN", "EtOH", "water", "THF"]},
+    {"name": "equiv", "kind": "integer", "low": 1, "high": 4},
+    {"name": "inert", "kind": "bool"}
+  ],
+  "budget": 24,
+  "batch": 4,
+  "noise": "medium",
+  "smoothness": "smooth",
+  "domain": "chemistry",
+  "prior": 0,
+  "notes": "示例：skill 问卷答案；budget 为含先验数据在内的总评价次数"
+}

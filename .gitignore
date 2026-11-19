@@ -1,0 +1,30 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+ENV/
+runs/
+*.egg-info/
+build/
+dist/
+.DS_Store
+
+# 运行与审计产物（每次跑都会变，仓库里只留可重跑的脚本与文档）
+_work/
+*.log
+htmlcov/
+.coverage
+coverage.xml
+
+# 文献抓取的原始语料（约 12 MB，可由 scripts/literature_scan.py 重新生成；
+# 派生的权重/报告仍在仓库里）
+research/literature_scan/
+
+# 2026-11-05 的一次人工抢救副本，未被任何代码引用
+recover/
+
+# 编辑器/IDE
+.idea/
+.vscode/
+*.swp

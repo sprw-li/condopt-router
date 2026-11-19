@@ -1,0 +1,58 @@
+{
+  "weights": {
+    "bayes": 1.535,
+    "constrained": 1.536,
+    "grid": 0.631,
+    "lhs": 1.039,
+    "mfbo": 0.736,
+    "parego": 0.956,
+    "qehvi": 0.713,
+    "qnehvi": 0.722,
+    "random": 1.443,
+    "sobol": 0.618,
+    "tpe": 1.146
+  },
+  "train": {
+    "n": 179,
+    "accuracy": 0.4972,
+    "by_space": {
+      "mixed": 0.447,
+      "categorical_heavy": 0.214,
+      "continuous_heavy": 0.573,
+      "unknown": 0.875
+    }
+  },
+  "baseline": {
+    "n": 179,
+    "accuracy": 0.352,
+    "by_space": {
+      "mixed": 0.191,
+      "categorical_heavy": 0.143,
+      "continuous_heavy": 0.469,
+      "unknown": 0.625
+    }
+  },
+  "test_accuracy": 0.4595,
+  "test_metrics": {
+    "n": 37,
+    "accuracy": 0.4595,
+    "by_space": {
+      "continuous_heavy": 0.55,
+      "categorical_heavy": 0.429,
+      "mixed": 0.3
+    }
+  },
+  "benchmark": {
+    "n_problems": 12,
+    "top1": 0.75,
+    "top2": 0.833,
+    "baseline_top1": 0.167,
+    "baseline_top2": 0.833
+  },
+  "provenance": {
+    "labels_dir": "research\\literature_scan\\labels",
+    "n_labels": 216,
+    "n_train": 179,
+    "n_test": 37
+  }
+}

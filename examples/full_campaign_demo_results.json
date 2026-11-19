@@ -1,0 +1,625 @@
+{
+  "algorithm": "constrained",
+  "actions": [
+    {
+      "action": "ask",
+      "remaining": 32,
+      "suggested": [
+        "ask_next_batch"
+      ]
+    },
+    {
+      "action": "tell",
+      "remaining": 28,
+      "suggested": [
+        "tell"
+      ]
+    },
+    {
+      "action": "ask",
+      "remaining": 28,
+      "suggested": [
+        "calibrate_spec",
+        "ask_next_batch"
+      ]
+    },
+    {
+      "action": "tell",
+      "remaining": 24,
+      "suggested": [
+        "tell",
+        "calibrate_spec"
+      ]
+    },
+    {
+      "action": "ask",
+      "remaining": 24,
+      "suggested": [
+        "replicate_on_new_plate",
+        "use_plate_adjusted_recommendation",
+        "calibrate_spec",
+        "ask_next_batch"
+      ]
+    },
+    {
+      "action": "tell",
+      "remaining": 20,
+      "suggested": [
+        "tell",
+        "replicate_on_new_plate",
+        "use_plate_adjusted_recommendation",
+        "calibrate_spec"
+      ]
+    },
+    {
+      "action": "ask",
+      "remaining": 20,
+      "suggested": [
+        "replicate_on_new_plate",
+        "use_plate_adjusted_recommendation",
+        "calibrate_spec",
+        "ask_next_batch"
+      ]
+    },
+    {
+      "action": "tell",
+      "remaining": 16,
+      "suggested": [
+        "tell",
+        "replicate_on_new_plate",
+        "use_plate_adjusted_recommendation",
+        "calibrate_spec"
+      ]
+    },
+    {
+      "action": "ask",
+      "remaining": 16,
+      "suggested": [
+        "calibrate_spec",
+        "ask_next_batch"
+      ]
+    },
+    {
+      "action": "tell",
+      "remaining": 12,
+      "suggested": [
+        "tell",
+        "calibrate_spec"
+      ]
+    },
+    {
+      "action": "ask",
+      "remaining": 12,
+      "suggested": [
+        "replicate_on_new_plate",
+        "use_plate_adjusted_recommendation",
+        "calibrate_spec",
+        "ask_next_batch"
+      ]
+    },
+    {
+      "action": "tell",
+      "remaining": 8,
+      "suggested": [
+        "tell",
+        "replicate_on_new_plate",
+        "use_plate_adjusted_recommendation",
+        "calibrate_spec"
+      ]
+    },
+    {
+      "action": "ask",
+      "remaining": 8,
+      "suggested": [
+        "replicate_on_new_plate",
+        "use_plate_adjusted_recommendation",
+        "calibrate_spec",
+        "ask_next_batch"
+      ]
+    },
+    {
+      "action": "tell",
+      "remaining": 4,
+      "suggested": [
+        "tell",
+        "replicate_on_new_plate",
+        "use_plate_adjusted_recommendation",
+        "calibrate_spec"
+      ]
+    },
+    {
+      "action": "confirm",
+      "remaining": 4,
+      "suggested": [
+        "calibrate_spec"
+      ]
+    },
+    {
+      "action": "tell",
+      "remaining": 1,
+      "suggested": [
+        "tell",
+        "calibrate_spec"
+      ]
+    },
+    {
+      "action": "ask",
+      "remaining": 1,
+      "suggested": [
+        "replicate_on_new_plate",
+        "use_plate_adjusted_recommendation",
+        "calibrate_spec",
+        "ask_next_batch"
+      ]
+    },
+    {
+      "action": "tell",
+      "remaining": 0,
+      "suggested": [
+        "tell",
+        "replicate_on_new_plate",
+        "use_plate_adjusted_recommendation",
+        "calibrate_spec"
+      ]
+    },
+    {
+      "action": "stop",
+      "remaining": 0,
+      "suggested": [
+        "replicate_on_new_plate",
+        "use_plate_adjusted_recommendation",
+        "calibrate_spec"
+      ]
+    }
+  ],
+  "summary_spec": {
+    "goals": [
+      {
+        "metric": "E_MPa",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 4.5,
+        "tolerance": 0.5,
+        "scale": 2.0
+      },
+      {
+        "metric": "UTS_MPa",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 6.8,
+        "tolerance": 0.6,
+        "scale": 2.5
+      },
+      {
+        "metric": "elongation_pct",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 95.0,
+        "tolerance": 7.0,
+        "scale": 25.0
+      }
+    ],
+    "constraints": {
+      "cure_time_s": {
+        "op": "<=",
+        "value": 10.0
+      },
+      "delta_T_C": {
+        "op": "<=",
+        "value": 70.0
+      }
+    },
+    "n": 32,
+    "in_spec": 7,
+    "best": {
+      "in_spec": true,
+      "goals": {
+        "E_MPa": {
+          "value": 4.50329021462629,
+          "mode": "target",
+          "target": 4.5,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.0016451073131449334
+        },
+        "UTS_MPa": {
+          "value": 6.449513816273992,
+          "mode": "target",
+          "target": 6.8,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.14019447349040312
+        },
+        "elongation_pct": {
+          "value": 94.56262258926597,
+          "mode": "target",
+          "target": 95.0,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.017495096429361184
+        }
+      },
+      "constraints": {
+        "cure_time_s": {
+          "value": 5.942396025713938,
+          "op": "<=",
+          "threshold": 10.0,
+          "in_spec": true
+        },
+        "delta_T_C": {
+          "value": 39.585024658404734,
+          "op": "<=",
+          "threshold": 70.0,
+          "in_spec": true
+        }
+      }
+    }
+  },
+  "plate_summary": {
+    "n_plates": 9,
+    "plates": [
+      {
+        "plate": "P1",
+        "n": 4,
+        "mean_score": -0.5555544336236983,
+        "min_score": -0.7064333106148056,
+        "max_score": -0.3661698468230023,
+        "range_score": 0.34026346379180333,
+        "std_score": 0.15886466042844583,
+        "mean_value": -0.5555544336236983,
+        "min_value": -0.7064333106148056,
+        "max_value": -0.3661698468230023,
+        "range_value": 0.34026346379180333,
+        "std_value": 0.15886466042844583
+      },
+      {
+        "plate": "P2",
+        "n": 4,
+        "mean_score": -0.28619152986600094,
+        "min_score": -0.365489709433325,
+        "max_score": -0.24442601367318728,
+        "range_score": 0.1210636957601377,
+        "std_score": 0.05704760258297182,
+        "mean_value": -0.28619152986600094,
+        "min_value": -0.365489709433325,
+        "max_value": -0.24442601367318728,
+        "range_value": 0.1210636957601377,
+        "std_value": 0.05704760258297182
+      },
+      {
+        "plate": "P3",
+        "n": 4,
+        "mean_score": -0.34540786439041726,
+        "min_score": -0.3764622888495852,
+        "max_score": -0.32718664714600015,
+        "range_score": 0.04927564170358506,
+        "std_score": 0.02164546937903324,
+        "mean_value": -0.34540786439041726,
+        "min_value": -0.3764622888495852,
+        "max_value": -0.32718664714600015,
+        "range_value": 0.04927564170358506,
+        "std_value": 0.02164546937903324
+      },
+      {
+        "plate": "P4",
+        "n": 4,
+        "mean_score": -0.3740608329127425,
+        "min_score": -0.5678648415990393,
+        "max_score": -0.17785638697797776,
+        "range_score": 0.3900084546210615,
+        "std_score": 0.2127083190995855,
+        "mean_value": -0.3740608329127425,
+        "min_value": -0.5678648415990393,
+        "max_value": -0.17785638697797776,
+        "range_value": 0.3900084546210615,
+        "std_value": 0.2127083190995855
+      },
+      {
+        "plate": "P5",
+        "n": 4,
+        "mean_score": -0.20356384157566534,
+        "min_score": -0.23523559382191472,
+        "max_score": -0.14152742536001112,
+        "range_score": 0.09370816846190361,
+        "std_score": 0.04386504891662751,
+        "mean_value": -0.20356384157566534,
+        "min_value": -0.23523559382191472,
+        "max_value": -0.14152742536001112,
+        "range_value": 0.09370816846190361,
+        "std_value": 0.04386504891662751
+      },
+      {
+        "plate": "P6",
+        "n": 4,
+        "mean_score": -0.20170015822245152,
+        "min_score": -0.38465829909407095,
+        "max_score": -0.10445479347232782,
+        "range_score": 0.2802035056217431,
+        "std_score": 0.1310389364412625,
+        "mean_value": -0.20170015822245152,
+        "min_value": -0.38465829909407095,
+        "max_value": -0.10445479347232782,
+        "range_value": 0.2802035056217431,
+        "std_value": 0.1310389364412625
+      },
+      {
+        "plate": "P7",
+        "n": 4,
+        "mean_score": -0.42682178266583226,
+        "min_score": -0.7654719486684641,
+        "max_score": -0.09012039657860987,
+        "range_score": 0.6753515520898543,
+        "std_score": 0.33301096751396614,
+        "mean_value": -0.42682178266583226,
+        "min_value": -0.7654719486684641,
+        "max_value": -0.09012039657860987,
+        "range_value": 0.6753515520898543,
+        "std_value": 0.33301096751396614
+      },
+      {
+        "plate": "P8",
+        "n": 3,
+        "mean_score": -0.07043028148253298,
+        "min_score": -0.09369136701467479,
+        "max_score": -0.05311155907763641,
+        "range_score": 0.04057980793703838,
+        "std_score": 0.020932366390443376,
+        "mean_value": -0.07043028148253298,
+        "min_value": -0.09369136701467479,
+        "max_value": -0.05311155907763641,
+        "range_value": 0.04057980793703838,
+        "std_value": 0.020932366390443376
+      },
+      {
+        "plate": "P9",
+        "n": 1,
+        "mean_score": -0.13911101669845813,
+        "min_score": -0.13911101669845813,
+        "max_score": -0.13911101669845813,
+        "range_score": 0.0,
+        "std_score": 0.0,
+        "mean_value": -0.13911101669845813,
+        "min_value": -0.13911101669845813,
+        "max_value": -0.13911101669845813,
+        "range_value": 0.0,
+        "std_value": 0.0
+      }
+    ],
+    "unassigned": 0,
+    "batch_effect": {
+      "detected": true,
+      "plates_compared": 8,
+      "n_used": 31,
+      "spread": 0.4851241521411653,
+      "relative_spread": 1.5370085403832952,
+      "pooled_std": 0.1633173186956416,
+      "f": 3.1220086605288695,
+      "p_value": 0.018117190128038568,
+      "message": "检测到批次/孔板效应：板间均值差 0.4851（相对 153.7%，F=3.12，p=0.0181）；建议同批内比较，并把 plate 作为随机效应或特征记录"
+    }
+  },
+  "recommendation": {
+    "run_dir": "examples\\runs\\full_campaign_demo",
+    "condition": {
+      "T": 52.777919573517686,
+      "time": 16.991304718122624,
+      "ratio": 0.6813147290052946,
+      "catalyst": "B"
+    },
+    "score": -0.07043028148253298,
+    "best_score": -0.09012039657860987,
+    "adjusted_score": -0.013754205402656289,
+    "selection_basis": "plate_adjusted",
+    "raw_best": {
+      "condition": {
+        "T": 52.777919573517686,
+        "time": 16.991304718122624,
+        "ratio": 0.6813147290052946,
+        "catalyst": "B"
+      },
+      "score": -0.05311155907763641,
+      "plate": "P8"
+    },
+    "plate_effects": {
+      "detected": true,
+      "effects": {
+        "P1": -0.16477844055878543,
+        "P2": 0.020217207742622378,
+        "P3": -0.020451956580137088,
+        "P4": -0.040130518154879974,
+        "P5": 0.0769650469947097,
+        "P6": 0.0782450053904154,
+        "P7": -0.07636619117595358,
+        "P8": 0.15248032227073705
+      },
+      "sigma_between": 0.014621505170542051,
+      "within_var": 0.02667254658593376,
+      "f": 3.1220086605288695,
+      "p_value": 0.018117190128038568,
+      "relative_spread": 1.5370085403832952,
+      "message": "batch/plate effect detected: spread 0.4851 (153.7%, p=0.0181)"
+    },
+    "objectives": {
+      "E_MPa": 4.585941156647988,
+      "UTS_MPa": 6.254761485620536,
+      "elongation_pct": 94.76761985849875
+    },
+    "constraints": {
+      "cure_time_s": 6.25716505909618,
+      "delta_T_C": 39.90211486855871
+    },
+    "spec": {
+      "in_spec": true,
+      "goals": {
+        "E_MPa": {
+          "value": 4.890044277796914,
+          "mode": "target",
+          "target": 4.5,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.195022138898457
+        },
+        "UTS_MPa": {
+          "value": 6.3841348175931145,
+          "mode": "target",
+          "target": 6.8,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.1663460729627541
+        },
+        "elongation_pct": {
+          "value": 89.06853049436228,
+          "mode": "target",
+          "target": 95.0,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.23725878022550886
+        }
+      },
+      "constraints": {
+        "cure_time_s": {
+          "value": 6.26146081730545,
+          "op": "<=",
+          "threshold": 10.0,
+          "in_spec": true
+        },
+        "delta_T_C": {
+          "value": 41.213144900028254,
+          "op": "<=",
+          "threshold": 70.0,
+          "in_spec": true
+        }
+      }
+    },
+    "spec_raw": {
+      "in_spec": true,
+      "goals": {
+        "E_MPa": {
+          "value": 4.585941156647988,
+          "mode": "target",
+          "target": 4.5,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.04297057832399398
+        },
+        "UTS_MPa": {
+          "value": 6.254761485620536,
+          "mode": "target",
+          "target": 6.8,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.21809540575178551
+        },
+        "elongation_pct": {
+          "value": 94.76761985849875,
+          "mode": "target",
+          "target": 95.0,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.0092952056600501
+        }
+      },
+      "constraints": {
+        "cure_time_s": {
+          "value": 6.25716505909618,
+          "op": "<=",
+          "threshold": 10.0,
+          "in_spec": true
+        },
+        "delta_T_C": {
+          "value": 39.90211486855871,
+          "op": "<=",
+          "threshold": 70.0,
+          "in_spec": true
+        }
+      }
+    },
+    "confirmation": {
+      "n": 3,
+      "mean": -0.07043028148253298,
+      "std": 0.02093236639044338,
+      "scores": [
+        -0.09369136701467479,
+        -0.05311155907763641,
+        -0.06448791835528775
+      ]
+    },
+    "should_stop": true,
+    "stop_reason": "预算已用尽"
+  },
+  "spec_calibration": {
+    "n_records": 32,
+    "min_samples": 3,
+    "tolerance_sigmas": 2.0,
+    "metrics": {
+      "E_MPa": {
+        "n": 32,
+        "suggested_scale": 0.7587944097825315,
+        "suggested_tolerance": 1.517588819565063,
+        "confidence": "high"
+      },
+      "UTS_MPa": {
+        "n": 32,
+        "suggested_scale": 0.7130650282758374,
+        "suggested_tolerance": 1.4261300565516748,
+        "confidence": "high"
+      },
+      "elongation_pct": {
+        "n": 32,
+        "suggested_scale": 11.819800621397846,
+        "suggested_tolerance": 23.639601242795692,
+        "confidence": "high"
+      }
+    }
+  },
+  "calibrated_spec": {
+    "goals": [
+      {
+        "metric": "E_MPa",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 4.5,
+        "tolerance": 1.517588819565063,
+        "scale": 0.7587944097825315
+      },
+      {
+        "metric": "UTS_MPa",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 6.8,
+        "tolerance": 1.4261300565516748,
+        "scale": 0.7130650282758374
+      },
+      {
+        "metric": "elongation_pct",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 95.0,
+        "tolerance": 23.639601242795692,
+        "scale": 11.819800621397846
+      }
+    ],
+    "constraints": {
+      "cure_time_s": {
+        "op": "<=",
+        "value": 10.0
+      },
+      "delta_T_C": {
+        "op": "<=",
+        "value": 70.0
+      }
+    },
+    "aggregation": "weighted_sum"
+  },
+  "report_excerpt": "Study: examples\\runs\\full_campaign_demo\n算法: constrained  参数: {\"kernel\": \"matern52\", \"length_scale\": 0.3, \"ard\": true, \"alpha\": 0.0001, \"n_initial\": 6, \"n_candidates\": 1024, \"acquisition\": \"ei\", \"kappa\": 2.0, \"xi\": 0.01, \"batch_strategy\": \"local_penalty\", \"local_frac\": 0.4, \"local_sigma\": 0.15, \"mc_draws\": 128, \"constraint_margin\": 0.0, \"feasibility_threshold\": 0.02}\n预算: 32/32 已评价，0 剩余\n当前最优 (spec_score, max):\n  T = 52.777919573517686\n  time = 16.991304718122624\n  ratio = 0.6813147290052946\n  catalyst = B\n  spec_score = -0.0531116\n轮次记录：\n  round 1: n=4 best=-0.3661698468230023 algo=constrained\n  round 2: n=4 best=-0.24442601367318728 algo=constrained\n  round 3: n=4 best=-0.24442601367318728 algo=constrained\n  round 4: n=4 best=-0.17785638697797776 algo=constrained\n  round 5: n=4 best=-0.14152742536001112 algo=constrained\n  round 6: n=4 best=-0.10445479347232782 algo=constrained\n  round 7: n=4 best=-0.09012039657860987 algo=constrained\n  round 8: n=3 best=-0.05311155907763641 algo=confirmation\n  round 9: n=1 best=-0.05311155907763641 algo=constrained\n孔板/批次：\n  P1: n=4  均值=-0.555554  极差=0.3403\n  P2: n=4  均值=-0.286192  极差=0.1211",
+  "run_dir": "examples\\runs\\full_campaign_demo"
+}

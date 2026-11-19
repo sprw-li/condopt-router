@@ -1,0 +1,10 @@
+{
+  "variables": [
+    {"name": "T", "kind": "continuous", "low": 40, "high": 120, "unit": "degC", "description": "reaction temperature"},
+    {"name": "time", "kind": "continuous", "low": 5, "high": 120, "unit": "min", "description": "residence time"},
+    {"name": "conc", "kind": "log", "low": 0.02, "high": 1.0, "unit": "M", "description": "substrate concentration"},
+    {"name": "solvent", "kind": "categorical", "choices": ["MeCN", "EtOH", "water", "THF"]},
+    {"name": "equiv", "kind": "integer", "low": 1, "high": 4, "unit": "equiv"},
+    {"name": "inert", "kind": "bool", "description": "inert atmosphere"}
+  ]
+}

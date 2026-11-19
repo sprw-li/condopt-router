@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "condopt"
+version = "0.1.0"
+keywords = ["bayesian-optimization", "design-of-experiments", "self-driving-lab", "multi-objective", "experiment-automation", "agent-skill"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+]
+description = "Condition optimization algorithms (random / low-discrepancy / GP-Bayesian) with an algorithm router, built as the prerequisite technology for AI self-driving labs."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "scikit-learn>=1.3",
+]
+
+[project.urls]
+Issues = "https://github.com/sprw-li/condopt/issues"
+
+[project.scripts]
+condopt = "condopt.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

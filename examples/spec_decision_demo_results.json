@@ -1,0 +1,208 @@
+{
+  "algorithm": "constrained",
+  "spec": {
+    "goals": [
+      {
+        "metric": "E_MPa",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 4.5,
+        "tolerance": 0.4,
+        "scale": 2.0
+      },
+      {
+        "metric": "UTS_MPa",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 6.8,
+        "tolerance": 0.6,
+        "scale": 2.5
+      },
+      {
+        "metric": "elongation_pct",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 95.0,
+        "tolerance": 7.0,
+        "scale": 25.0
+      }
+    ],
+    "constraints": {
+      "cure_time_s": {
+        "op": "<=",
+        "value": 10.0
+      },
+      "delta_T_C": {
+        "op": "<=",
+        "value": 70.0
+      }
+    },
+    "aggregation": "weighted_sum"
+  },
+  "summary_spec": {
+    "goals": [
+      {
+        "metric": "E_MPa",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 4.5,
+        "tolerance": 0.4,
+        "scale": 2.0
+      },
+      {
+        "metric": "UTS_MPa",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 6.8,
+        "tolerance": 0.6,
+        "scale": 2.5
+      },
+      {
+        "metric": "elongation_pct",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 95.0,
+        "tolerance": 7.0,
+        "scale": 25.0
+      }
+    ],
+    "constraints": {
+      "cure_time_s": {
+        "op": "<=",
+        "value": 10.0
+      },
+      "delta_T_C": {
+        "op": "<=",
+        "value": 70.0
+      }
+    },
+    "n": 27,
+    "in_spec": 9,
+    "best": {
+      "in_spec": true,
+      "goals": {
+        "E_MPa": {
+          "value": 4.681372245989173,
+          "mode": "target",
+          "target": 4.5,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.09068612299458634
+        },
+        "UTS_MPa": {
+          "value": 6.997983972312194,
+          "mode": "target",
+          "target": 6.8,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.07919358892487764
+        },
+        "elongation_pct": {
+          "value": 96.6506226551173,
+          "mode": "target",
+          "target": 95.0,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.06602490620469212
+        }
+      },
+      "constraints": {
+        "cure_time_s": {
+          "value": 6.648039839883365,
+          "op": "<=",
+          "threshold": 10.0,
+          "in_spec": true
+        },
+        "delta_T_C": {
+          "value": 44.63728421399533,
+          "op": "<=",
+          "threshold": 70.0,
+          "in_spec": true
+        }
+      }
+    }
+  },
+  "caller_stop_reason": "达到最大轮次 6",
+  "recommendation": {
+    "run_dir": "examples\\runs\\spec_decision_demo",
+    "condition": {
+      "T": 68.15930804469399,
+      "time": 42.574625547929,
+      "ratio": 0.774223827496918,
+      "catalyst": "B"
+    },
+    "score": -0.11711202072249381,
+    "best_score": -0.07863487270805203,
+    "objectives": {
+      "E_MPa": 4.681372245989173,
+      "UTS_MPa": 6.997983972312194,
+      "elongation_pct": 96.6506226551173
+    },
+    "constraints": {
+      "cure_time_s": 6.648039839883365,
+      "delta_T_C": 44.63728421399533
+    },
+    "spec": {
+      "in_spec": true,
+      "goals": {
+        "E_MPa": {
+          "value": 4.681372245989173,
+          "mode": "target",
+          "target": 4.5,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.09068612299458634
+        },
+        "UTS_MPa": {
+          "value": 6.997983972312194,
+          "mode": "target",
+          "target": 6.8,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.07919358892487764
+        },
+        "elongation_pct": {
+          "value": 96.6506226551173,
+          "mode": "target",
+          "target": 95.0,
+          "low": null,
+          "high": null,
+          "in_spec": true,
+          "score": -0.06602490620469212
+        }
+      },
+      "constraints": {
+        "cure_time_s": {
+          "value": 6.648039839883365,
+          "op": "<=",
+          "threshold": 10.0,
+          "in_spec": true
+        },
+        "delta_T_C": {
+          "value": 44.63728421399533,
+          "op": "<=",
+          "threshold": 70.0,
+          "in_spec": true
+        }
+      }
+    },
+    "confirmation": {
+      "n": 3,
+      "mean": -0.11711202072249381,
+      "std": 0.0641221587426087,
+      "scores": [
+        -0.08156662761963437,
+        -0.19113456183979502,
+        -0.07863487270805203
+      ]
+    },
+    "should_stop": true,
+    "stop_reason": "达到最大轮次 6"
+  },
+  "run_dir": "examples\\runs\\spec_decision_demo"
+}

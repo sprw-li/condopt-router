@@ -1,0 +1,991 @@
+{
+  "base": {
+    "algorithm": "constrained",
+    "actions": [
+      {
+        "action": "ask",
+        "ask_n": 4,
+        "suggested": [
+          "calibrate_spec",
+          "ask_next_batch"
+        ]
+      },
+      {
+        "action": "tell",
+        "ask_n": null,
+        "suggested": [
+          "tell",
+          "calibrate_spec"
+        ]
+      },
+      {
+        "action": "ask",
+        "ask_n": 4,
+        "suggested": [
+          "calibrate_spec",
+          "review_spec",
+          "ask_next_batch"
+        ]
+      },
+      {
+        "action": "tell",
+        "ask_n": null,
+        "suggested": [
+          "tell",
+          "calibrate_spec",
+          "review_spec"
+        ]
+      },
+      {
+        "action": "ask",
+        "ask_n": 4,
+        "suggested": [
+          "calibrate_spec",
+          "review_spec",
+          "ask_next_batch"
+        ]
+      },
+      {
+        "action": "tell",
+        "ask_n": null,
+        "suggested": [
+          "tell",
+          "calibrate_spec",
+          "review_spec"
+        ]
+      },
+      {
+        "action": "confirm",
+        "ask_n": null,
+        "suggested": [
+          "calibrate_spec",
+          "review_spec"
+        ]
+      },
+      {
+        "action": "tell",
+        "ask_n": null,
+        "suggested": [
+          "tell",
+          "calibrate_spec",
+          "review_spec"
+        ]
+      },
+      {
+        "action": "ask",
+        "ask_n": 1,
+        "suggested": [
+          "calibrate_spec",
+          "review_spec",
+          "ask_next_batch"
+        ]
+      },
+      {
+        "action": "tell",
+        "ask_n": null,
+        "suggested": [
+          "tell",
+          "calibrate_spec",
+          "review_spec"
+        ]
+      },
+      {
+        "action": "stop",
+        "ask_n": null,
+        "suggested": [
+          "calibrate_spec",
+          "review_spec"
+        ]
+      }
+    ],
+    "summary_spec": {
+      "goals": [
+        {
+          "metric": "E_MPa",
+          "mode": "target",
+          "weight": 1.0,
+          "target": 4.5,
+          "tolerance": 0.5,
+          "scale": 1.5
+        },
+        {
+          "metric": "UTS_MPa",
+          "mode": "target",
+          "weight": 1.0,
+          "target": 7.5,
+          "tolerance": 0.7,
+          "scale": 2.0
+        },
+        {
+          "metric": "elongation_pct",
+          "mode": "target",
+          "weight": 1.0,
+          "target": 75.0,
+          "tolerance": 8.0,
+          "scale": 25.0
+        }
+      ],
+      "constraints": {
+        "cure_time_s": {
+          "op": "<=",
+          "value": 10.0
+        },
+        "delta_T_C": {
+          "op": "<=",
+          "value": 70.0
+        }
+      },
+      "n": 20,
+      "in_spec": 0,
+      "best": {
+        "in_spec": false,
+        "goals": {
+          "E_MPa": {
+            "value": 4.703623030366317,
+            "mode": "target",
+            "target": 4.5,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.13574868691087794
+          },
+          "UTS_MPa": {
+            "value": 6.592938810111044,
+            "mode": "target",
+            "target": 7.5,
+            "low": null,
+            "high": null,
+            "in_spec": false,
+            "score": -0.4535305949444779
+          },
+          "elongation_pct": {
+            "value": 78.08238054870449,
+            "mode": "target",
+            "target": 75.0,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.12329522194817968
+          }
+        },
+        "constraints": {
+          "cure_time_s": {
+            "value": 6.690450460754757,
+            "op": "<=",
+            "threshold": 10.0,
+            "in_spec": true
+          },
+          "delta_T_C": {
+            "value": 45.08757438817639,
+            "op": "<=",
+            "threshold": 70.0,
+            "in_spec": true
+          }
+        }
+      }
+    },
+    "recommendation": {
+      "run_dir": "examples\\paper_campaigns\\runs\\thermoset_spec_decision",
+      "condition": {
+        "monomer1": "2-HEA",
+        "monomer2": "IDA",
+        "crosslinker": "ETPTA",
+        "m2_pct": 22.136844051054563,
+        "xl_pct": 29.94115675092537
+      },
+      "score": -0.2375248346011785,
+      "best_score": -0.2375248346011785,
+      "adjusted_score": null,
+      "selection_basis": "raw",
+      "raw_best": {
+        "condition": {
+          "monomer1": "2-HEA",
+          "monomer2": "IDA",
+          "crosslinker": "ETPTA",
+          "m2_pct": 22.136844051054563,
+          "xl_pct": 29.94115675092537
+        },
+        "score": -0.2375248346011785,
+        "plate": "P3"
+      },
+      "plate_effects": {
+        "detected": false,
+        "effects": {
+          "P1": -0.1594821004342177,
+          "P2": -0.07588041617324459,
+          "P3": 0.09253966361757607,
+          "P4": 0.16300484775684607
+        },
+        "sigma_between": 0.046602727276587284,
+        "within_var": 0.18998748721124684,
+        "f": 1.915763020606056,
+        "p_value": 0.18554065762545882,
+        "relative_spread": 1.1358423016058656,
+        "message": "no significant batch/plate effect (spread 0.7065, p=0.186)"
+      },
+      "objectives": {
+        "E_MPa": 4.703623030366317,
+        "UTS_MPa": 6.592938810111044,
+        "elongation_pct": 78.08238054870449
+      },
+      "constraints": {
+        "cure_time_s": 6.690450460754757,
+        "delta_T_C": 45.08757438817639
+      },
+      "spec": {
+        "in_spec": false,
+        "goals": {
+          "E_MPa": {
+            "value": 4.703623030366317,
+            "mode": "target",
+            "target": 4.5,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.13574868691087794
+          },
+          "UTS_MPa": {
+            "value": 6.592938810111044,
+            "mode": "target",
+            "target": 7.5,
+            "low": null,
+            "high": null,
+            "in_spec": false,
+            "score": -0.4535305949444779
+          },
+          "elongation_pct": {
+            "value": 78.08238054870449,
+            "mode": "target",
+            "target": 75.0,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.12329522194817968
+          }
+        },
+        "constraints": {
+          "cure_time_s": {
+            "value": 6.690450460754757,
+            "op": "<=",
+            "threshold": 10.0,
+            "in_spec": true
+          },
+          "delta_T_C": {
+            "value": 45.08757438817639,
+            "op": "<=",
+            "threshold": 70.0,
+            "in_spec": true
+          }
+        }
+      },
+      "spec_raw": {
+        "in_spec": false,
+        "goals": {
+          "E_MPa": {
+            "value": 4.703623030366317,
+            "mode": "target",
+            "target": 4.5,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.13574868691087794
+          },
+          "UTS_MPa": {
+            "value": 6.592938810111044,
+            "mode": "target",
+            "target": 7.5,
+            "low": null,
+            "high": null,
+            "in_spec": false,
+            "score": -0.4535305949444779
+          },
+          "elongation_pct": {
+            "value": 78.08238054870449,
+            "mode": "target",
+            "target": 75.0,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.12329522194817968
+          }
+        },
+        "constraints": {
+          "cure_time_s": {
+            "value": 6.690450460754757,
+            "op": "<=",
+            "threshold": 10.0,
+            "in_spec": true
+          },
+          "delta_T_C": {
+            "value": 45.08757438817639,
+            "op": "<=",
+            "threshold": 70.0,
+            "in_spec": true
+          }
+        }
+      },
+      "confirmation": {
+        "n": 3,
+        "mean": -0.2375248346011785,
+        "std": 0.0,
+        "scores": [
+          -0.2375248346011785,
+          -0.2375248346011785,
+          -0.2375248346011785
+        ]
+      },
+      "should_stop": true,
+      "stop_reason": "预算已用尽"
+    },
+    "spec_calibration": {
+      "n_records": 20,
+      "min_samples": 3,
+      "tolerance_sigmas": 2.0,
+      "metrics": {
+        "E_MPa": {
+          "n": 20,
+          "suggested_scale": 0.9684985112545264,
+          "suggested_tolerance": 1.9369970225090527,
+          "confidence": "high"
+        },
+        "UTS_MPa": {
+          "n": 20,
+          "suggested_scale": 1.1729336460008468,
+          "suggested_tolerance": 2.3458672920016936,
+          "confidence": "high"
+        },
+        "elongation_pct": {
+          "n": 20,
+          "suggested_scale": 15.857891605100647,
+          "suggested_tolerance": 31.715783210201295,
+          "confidence": "high"
+        }
+      }
+    },
+    "spec_review": {
+      "n_records": 20,
+      "metrics": {
+        "E_MPa": {
+          "n": 20,
+          "mode": "target",
+          "observed": [
+            1.8,
+            6.606355523969978
+          ],
+          "target": 4.5,
+          "target_within_observed": true,
+          "suggested_target": null,
+          "in_spec_count": 8
+        },
+        "UTS_MPa": {
+          "n": 20,
+          "mode": "target",
+          "observed": [
+            3.0,
+            9.219090094044805
+          ],
+          "target": 7.5,
+          "target_within_observed": true,
+          "suggested_target": null,
+          "in_spec_count": 3
+        },
+        "elongation_pct": {
+          "n": 20,
+          "mode": "target",
+          "observed": [
+            56.77728223614395,
+            127.36
+          ],
+          "target": 75.0,
+          "target_within_observed": true,
+          "suggested_target": null,
+          "in_spec_count": 7
+        }
+      }
+    },
+    "calibrated_spec": {
+      "goals": [
+        {
+          "metric": "E_MPa",
+          "mode": "target",
+          "weight": 1.0,
+          "target": 4.5,
+          "tolerance": 1.9369970225090527,
+          "scale": 0.9684985112545264
+        },
+        {
+          "metric": "UTS_MPa",
+          "mode": "target",
+          "weight": 1.0,
+          "target": 7.5,
+          "tolerance": 2.3458672920016936,
+          "scale": 1.1729336460008468
+        },
+        {
+          "metric": "elongation_pct",
+          "mode": "target",
+          "weight": 1.0,
+          "target": 75.0,
+          "tolerance": 31.715783210201295,
+          "scale": 15.857891605100647
+        }
+      ],
+      "constraints": {
+        "cure_time_s": {
+          "op": "<=",
+          "value": 10.0
+        },
+        "delta_T_C": {
+          "op": "<=",
+          "value": 70.0
+        }
+      },
+      "aggregation": "weighted_sum"
+    },
+    "run_dir": "examples\\paper_campaigns\\runs\\thermoset_spec_decision"
+  },
+  "suggestion": {
+    "calibration": {
+      "n_records": 20,
+      "min_samples": 3,
+      "tolerance_sigmas": 2.0,
+      "metrics": {
+        "E_MPa": {
+          "n": 20,
+          "suggested_scale": 0.9684985112545264,
+          "suggested_tolerance": 1.9369970225090527,
+          "confidence": "high"
+        },
+        "UTS_MPa": {
+          "n": 20,
+          "suggested_scale": 1.1729336460008468,
+          "suggested_tolerance": 2.3458672920016936,
+          "confidence": "high"
+        },
+        "elongation_pct": {
+          "n": 20,
+          "suggested_scale": 15.857891605100647,
+          "suggested_tolerance": 31.715783210201295,
+          "confidence": "high"
+        }
+      }
+    },
+    "achievability": {
+      "n_records": 20,
+      "metrics": {
+        "E_MPa": {
+          "n": 20,
+          "mode": "target",
+          "observed": [
+            1.8,
+            6.606355523969978
+          ],
+          "target": 4.5,
+          "target_within_observed": true,
+          "suggested_target": null,
+          "in_spec_count": 8
+        },
+        "UTS_MPa": {
+          "n": 20,
+          "mode": "target",
+          "observed": [
+            3.0,
+            9.219090094044805
+          ],
+          "target": 7.5,
+          "target_within_observed": true,
+          "suggested_target": null,
+          "in_spec_count": 3
+        },
+        "elongation_pct": {
+          "n": 20,
+          "mode": "target",
+          "observed": [
+            56.77728223614395,
+            127.36
+          ],
+          "target": 75.0,
+          "target_within_observed": true,
+          "suggested_target": null,
+          "in_spec_count": 7
+        }
+      }
+    },
+    "changed": []
+  },
+  "suggested_spec": {
+    "goals": [
+      {
+        "metric": "E_MPa",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 4.5,
+        "tolerance": 1.9369970225090527,
+        "scale": 0.9684985112545264
+      },
+      {
+        "metric": "UTS_MPa",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 7.5,
+        "tolerance": 2.3458672920016936,
+        "scale": 1.1729336460008468
+      },
+      {
+        "metric": "elongation_pct",
+        "mode": "target",
+        "weight": 1.0,
+        "target": 75.0,
+        "tolerance": 31.715783210201295,
+        "scale": 15.857891605100647
+      }
+    ],
+    "constraints": {
+      "cure_time_s": {
+        "op": "<=",
+        "value": 10.0
+      },
+      "delta_T_C": {
+        "op": "<=",
+        "value": 70.0
+      }
+    },
+    "aggregation": "weighted_sum"
+  },
+  "suggested_campaign": {
+    "algorithm": "constrained",
+    "actions": [
+      {
+        "action": "ask",
+        "ask_n": 4,
+        "suggested": [
+          "calibrate_spec",
+          "ask_next_batch"
+        ]
+      },
+      {
+        "action": "tell",
+        "ask_n": null,
+        "suggested": [
+          "tell",
+          "calibrate_spec"
+        ]
+      },
+      {
+        "action": "ask",
+        "ask_n": 4,
+        "suggested": [
+          "calibrate_spec",
+          "ask_next_batch"
+        ]
+      },
+      {
+        "action": "tell",
+        "ask_n": null,
+        "suggested": [
+          "tell",
+          "calibrate_spec"
+        ]
+      },
+      {
+        "action": "ask",
+        "ask_n": 4,
+        "suggested": [
+          "calibrate_spec",
+          "ask_next_batch"
+        ]
+      },
+      {
+        "action": "tell",
+        "ask_n": null,
+        "suggested": [
+          "tell",
+          "calibrate_spec"
+        ]
+      },
+      {
+        "action": "confirm",
+        "ask_n": null,
+        "suggested": [
+          "calibrate_spec"
+        ]
+      },
+      {
+        "action": "tell",
+        "ask_n": null,
+        "suggested": [
+          "tell",
+          "calibrate_spec"
+        ]
+      },
+      {
+        "action": "ask",
+        "ask_n": 1,
+        "suggested": [
+          "calibrate_spec",
+          "ask_next_batch"
+        ]
+      },
+      {
+        "action": "tell",
+        "ask_n": null,
+        "suggested": [
+          "tell",
+          "calibrate_spec"
+        ]
+      },
+      {
+        "action": "stop",
+        "ask_n": null,
+        "suggested": [
+          "calibrate_spec"
+        ]
+      }
+    ],
+    "summary_spec": {
+      "goals": [
+        {
+          "metric": "E_MPa",
+          "mode": "target",
+          "weight": 1.0,
+          "target": 4.5,
+          "tolerance": 1.9369970225090527,
+          "scale": 0.9684985112545264
+        },
+        {
+          "metric": "UTS_MPa",
+          "mode": "target",
+          "weight": 1.0,
+          "target": 7.5,
+          "tolerance": 2.3458672920016936,
+          "scale": 1.1729336460008468
+        },
+        {
+          "metric": "elongation_pct",
+          "mode": "target",
+          "weight": 1.0,
+          "target": 75.0,
+          "tolerance": 31.715783210201295,
+          "scale": 15.857891605100647
+        }
+      ],
+      "constraints": {
+        "cure_time_s": {
+          "op": "<=",
+          "value": 10.0
+        },
+        "delta_T_C": {
+          "op": "<=",
+          "value": 70.0
+        }
+      },
+      "n": 20,
+      "in_spec": 13,
+      "best": {
+        "in_spec": true,
+        "goals": {
+          "E_MPa": {
+            "value": 4.857547799483093,
+            "mode": "target",
+            "target": 4.5,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.3691774384040617
+          },
+          "UTS_MPa": {
+            "value": 6.742500607936228,
+            "mode": "target",
+            "target": 7.5,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.645816065253554
+          },
+          "elongation_pct": {
+            "value": 76.33749290741068,
+            "mode": "target",
+            "target": 75.0,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.08434241705754102
+          }
+        },
+        "constraints": {
+          "cure_time_s": {
+            "value": 6.80179291608246,
+            "op": "<=",
+            "threshold": 10.0,
+            "in_spec": true
+          },
+          "delta_T_C": {
+            "value": 45.916418583441704,
+            "op": "<=",
+            "threshold": 70.0,
+            "in_spec": true
+          }
+        }
+      }
+    },
+    "recommendation": {
+      "run_dir": "examples\\paper_campaigns\\runs\\thermoset_spec_decision_suggested",
+      "condition": {
+        "monomer1": "2-HEA",
+        "monomer2": "IDA",
+        "crosslinker": "ETPTA",
+        "m2_pct": 23.00943830937312,
+        "xl_pct": 31.187505066135234
+      },
+      "score": -0.3664453069050522,
+      "best_score": -0.3664453069050522,
+      "adjusted_score": null,
+      "selection_basis": "raw",
+      "raw_best": {
+        "condition": {
+          "monomer1": "2-HEA",
+          "monomer2": "IDA",
+          "crosslinker": "ETPTA",
+          "m2_pct": 23.00943830937312,
+          "xl_pct": 31.187505066135234
+        },
+        "score": -0.3664453069050522,
+        "plate": "P3"
+      },
+      "plate_effects": {
+        "detected": false,
+        "effects": {
+          "P1": -0.2722450192118619,
+          "P2": -0.12994368120568978,
+          "P3": 0.15811905936876644,
+          "P4": 0.28008406855629997
+        },
+        "sigma_between": 0.1311526270060918,
+        "within_var": 0.4953629836005916,
+        "f": 1.988439771169634,
+        "p_value": 0.1742248677868343,
+        "relative_spread": 1.1630045782048561,
+        "message": "no significant batch/plate effect (spread 1.162, p=0.174)"
+      },
+      "objectives": {
+        "E_MPa": 4.857547799483093,
+        "UTS_MPa": 6.742500607936228,
+        "elongation_pct": 76.33749290741068
+      },
+      "constraints": {
+        "cure_time_s": 6.80179291608246,
+        "delta_T_C": 45.916418583441704
+      },
+      "spec": {
+        "in_spec": true,
+        "goals": {
+          "E_MPa": {
+            "value": 4.857547799483093,
+            "mode": "target",
+            "target": 4.5,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.3691774384040617
+          },
+          "UTS_MPa": {
+            "value": 6.742500607936228,
+            "mode": "target",
+            "target": 7.5,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.645816065253554
+          },
+          "elongation_pct": {
+            "value": 76.33749290741068,
+            "mode": "target",
+            "target": 75.0,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.08434241705754102
+          }
+        },
+        "constraints": {
+          "cure_time_s": {
+            "value": 6.80179291608246,
+            "op": "<=",
+            "threshold": 10.0,
+            "in_spec": true
+          },
+          "delta_T_C": {
+            "value": 45.916418583441704,
+            "op": "<=",
+            "threshold": 70.0,
+            "in_spec": true
+          }
+        }
+      },
+      "spec_raw": {
+        "in_spec": true,
+        "goals": {
+          "E_MPa": {
+            "value": 4.857547799483093,
+            "mode": "target",
+            "target": 4.5,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.3691774384040617
+          },
+          "UTS_MPa": {
+            "value": 6.742500607936228,
+            "mode": "target",
+            "target": 7.5,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.645816065253554
+          },
+          "elongation_pct": {
+            "value": 76.33749290741068,
+            "mode": "target",
+            "target": 75.0,
+            "low": null,
+            "high": null,
+            "in_spec": true,
+            "score": -0.08434241705754102
+          }
+        },
+        "constraints": {
+          "cure_time_s": {
+            "value": 6.80179291608246,
+            "op": "<=",
+            "threshold": 10.0,
+            "in_spec": true
+          },
+          "delta_T_C": {
+            "value": 45.916418583441704,
+            "op": "<=",
+            "threshold": 70.0,
+            "in_spec": true
+          }
+        }
+      },
+      "confirmation": {
+        "n": 3,
+        "mean": -0.3664453069050522,
+        "std": 0.0,
+        "scores": [
+          -0.3664453069050522,
+          -0.3664453069050522,
+          -0.3664453069050522
+        ]
+      },
+      "should_stop": true,
+      "stop_reason": "预算已用尽"
+    },
+    "spec_calibration": {
+      "n_records": 20,
+      "min_samples": 3,
+      "tolerance_sigmas": 2.0,
+      "metrics": {
+        "E_MPa": {
+          "n": 20,
+          "suggested_scale": 1.0609226337492783,
+          "suggested_tolerance": 2.1218452674985566,
+          "confidence": "high"
+        },
+        "UTS_MPa": {
+          "n": 20,
+          "suggested_scale": 1.3203776337492776,
+          "suggested_tolerance": 2.6407552674985553,
+          "confidence": "high"
+        },
+        "elongation_pct": {
+          "n": 20,
+          "suggested_scale": 17.416271776863745,
+          "suggested_tolerance": 34.83254355372749,
+          "confidence": "high"
+        }
+      }
+    },
+    "spec_review": {
+      "n_records": 20,
+      "metrics": {
+        "E_MPa": {
+          "n": 20,
+          "mode": "target",
+          "observed": [
+            2.113178292668179,
+            7.0033719489702
+          ],
+          "target": 4.5,
+          "target_within_observed": true,
+          "suggested_target": null,
+          "in_spec_count": 15
+        },
+        "UTS_MPa": {
+          "n": 20,
+          "mode": "target",
+          "observed": [
+            3.409254714846611,
+            9.219090094044805
+          ],
+          "target": 7.5,
+          "target_within_observed": true,
+          "suggested_target": null,
+          "in_spec_count": 16
+        },
+        "elongation_pct": {
+          "n": 20,
+          "mode": "target",
+          "observed": [
+            50.36931931876909,
+            127.36
+          ],
+          "target": 75.0,
+          "target_within_observed": true,
+          "suggested_target": null,
+          "in_spec_count": 15
+        }
+      }
+    },
+    "calibrated_spec": {
+      "goals": [
+        {
+          "metric": "E_MPa",
+          "mode": "target",
+          "weight": 1.0,
+          "target": 4.5,
+          "tolerance": 2.1218452674985566,
+          "scale": 1.0609226337492783
+        },
+        {
+          "metric": "UTS_MPa",
+          "mode": "target",
+          "weight": 1.0,
+          "target": 7.5,
+          "tolerance": 2.6407552674985553,
+          "scale": 1.3203776337492776
+        },
+        {
+          "metric": "elongation_pct",
+          "mode": "target",
+          "weight": 1.0,
+          "target": 75.0,
+          "tolerance": 34.83254355372749,
+          "scale": 17.416271776863745
+        }
+      ],
+      "constraints": {
+        "cure_time_s": {
+          "op": "<=",
+          "value": 10.0
+        },
+        "delta_T_C": {
+          "op": "<=",
+          "value": 70.0
+        }
+      },
+      "aggregation": "weighted_sum"
+    },
+    "run_dir": "examples\\paper_campaigns\\runs\\thermoset_spec_decision_suggested"
+  }
+}

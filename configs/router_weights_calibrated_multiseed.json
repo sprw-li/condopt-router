@@ -1,0 +1,46 @@
+{
+  "weights": {
+    "bayes": 1.499,
+    "constrained": 1.284,
+    "cqehvi": 1.072,
+    "grid": 0.701,
+    "lhs": 1.034,
+    "mfbo": 1.211,
+    "parego": 1.513,
+    "qehvi": 1.567,
+    "random": 1.077,
+    "sobol": 1.465,
+    "tpe": 0.86
+  },
+  "in_sample_metrics": {
+    "top1": 0.9090909090909091,
+    "top2": 0.9090909090909091,
+    "mean_regret": 0.0010359119125492554,
+    "n_problems": 11
+  },
+  "default_metrics": {
+    "top1": 0.8181818181818182,
+    "top2": 0.9090909090909091,
+    "mean_regret": 0.005967325006552299,
+    "n_problems": 11
+  },
+  "lopo_metrics": {
+    "top1": 0.8181818181818182,
+    "top2": 0.9090909090909091,
+    "mean_regret": 0.025842044236120035,
+    "n_problems": 11
+  },
+  "labels": {
+    "branin": "bayes",
+    "sphere2d": "bayes",
+    "mixed_reaction": "bayes",
+    "discrete_catalyst": "lhs",
+    "suzuki_like": "bayes",
+    "high_cardinality_solvent": "bayes",
+    "constraint_easy": "constrained",
+    "moo_yield_cost": "parego",
+    "moo_constrained": "cqehvi",
+    "mf_suzuki": "mfbo",
+    "mf_constrained": "mfbo"
+  }
+}

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>condopt 看板 · 交互原型（mock 数据）</title>
+<style>
+  :root{--bg:#f6f7f9;--card:#fff;--ink:#1d2330;--muted:#69707d;--line:#e3e6eb;--brand:#2f6feb;--ok:#1a8f5d;--warn:#b26a00;--bad:#c62828}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Microsoft YaHei","Segoe UI",system-ui,sans-serif}
+  header{background:var(--card);border-bottom:1px solid var(--line);padding:12px 20px}
+  h1{font-size:16px;margin:0 0 6px} h2{font-size:14px;margin:0 0 8px} h3{font-size:13px;margin:10px 0 4px;color:var(--muted)}
+  .row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .tag{background:#eef2fb;color:var(--brand);border-radius:10px;padding:1px 8px;font-size:12px}
+  .tag.ai{background:#f3ecff;color:#6b3fc4}.tag.warn{background:#fff3e0;color:var(--warn)}.tag.bad{background:#fdecea;color:var(--bad)}
+  main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:14px 20px;max-width:1280px;margin:0 auto}
+  section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+  .wide{grid-column:1/-1}
+  .muted{color:var(--muted)} .small{font-size:12px}
+  button{cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:6px;padding:4px 10px;font:inherit}
+  button.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  input,select{border:1px solid var(--line);border-radius:6px;padding:3px 6px;font:inherit;background:#fff}
+  input[type=number]{width:78px}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:7px;overflow:hidden}
+  .seg button{border:0;border-radius:0;padding:4px 10px;background:#fff}
+  .seg button.on{background:var(--brand);color:#fff}
+  .bar{height:8px;background:#e9ecf1;border-radius:5px;overflow:hidden;flex:1;min-width:120px}
+  .bar>i{display:block;height:100%;background:var(--brand)}
+  table{width:100%;border-collapse:collapse;font-size:12px} th,td{padding:5px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+  th:first-child,td:first-child{text-align:left} th{color:var(--muted);font-weight:600}
+  .imp-item{margin:5px 0} .imp-bar{height:10px;background:#eef2fb;border-radius:4px;overflow:hidden} .imp-bar>i{display:block;height:100%;background:#7aa2f7}
+  ol.log{margin:6px 0 0;padding-left:20px;font-size:12px} ol.log li{margin:4px 0}
+  .k{font-family:Consolas,monospace;background:#f2f4f7;padding:0 4px;border-radius:4px}
+  .err{color:var(--bad);font-size:12px} .ok{color:var(--ok);font-size:12px}
+  svg{width:100%;height:auto;display:block}
+  footer{max-width:1280px;margin:0 auto;padding:8px 20px 28px;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>condopt 看板 <span class="tag">原型 · mock 数据</span> <span class="tag ai">AI 提案待审</span></h1>
+  <div class="row small">
+    <span>study <b>s-20261105-01</b></span>
+    <span>config_hash <span class="k">sha256:6f1c…</span></span>
+    <span>空间 dim=5</span>
+    <span>目标 <b>yield</b> ↑</span>
+    <span class="seg" id="effort">
+      <button data-v="quick">quick</button><button data-v="normal" class="on">normal</button><button data-v="thorough">thorough</button>
+    </span>
+    <span class="seg" id="intent">
+      <button data-v="explore">探索</button><button data-v="exploit" class="on">利用</button>
+    </span>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <span class="small">预算 <b id="used">40</b> / <b id="total">160</b> 次</span>
+    <div class="bar"><i id="usedbar" style="width:25%"></i></div>
+    <span class="small" id="budgetNote">剩余 120 次 · 预计 18 轮</span>
+  </div>
+</header>
+
+<main>
+  <section>
+    <h2>输入线（可调部分，实时校验）</h2>
+    <div class="row small">
+      <label>batch_size <input id="batch" type="number" min="1" max="64" value="8"></label>
+      <label>max_rounds <input id="rounds" type="number" min="1" max="200" value="18"></label>
+      <label>init_size <input id="init" type="number" min="0" max="200" value="16"></label>
+      <label>方向 <select id="dir"><option value="max">max</option><option value="min">min</option></select></label>
+      <label>算法族 <select id="algo"><option>auto</option><option>bayes</option><option>random</option></select></label>
+    </div>
+    <div class="row small" style="margin-top:6px">
+      <label>固定条件 <input id="fixed" style="width:220px" value='{"atmosphere":"N2","plate":"P-07"}'></label>
+      <span class="muted">L04 预算由档位决定，不可单独超限</span>
+    </div>
+    <p id="valid" class="ok">✓ 初始 16 + 18 轮 × 8 = 160，与预算一致（X01 通过）</p>
+    <p class="muted small" id="intentNote">intent=利用 → acquisition=ei，xi=0.001，local_frac=0.6</p>
+  </section>
+
+  <section>
+    <h2>收敛曲线</h2>
+    <svg id="conv" viewBox="0 0 360 190" role="img" aria-label="收敛曲线"></svg>
+    <p class="muted small" id="convNote">灰点=每次观测；蓝线=best-so-far；空心点=下一批预测均值±1σ（mock）。y 轴为 signed score。</p>
+  </section>
+
+  <section>
+    <h2>搜索空间覆盖（temperature × conc）</h2>
+    <svg id="cov" viewBox="0 0 300 245" role="img" aria-label="覆盖热图"></svg>
+    <p class="muted small" id="covNote">10×10 网格；<b>白格=完全未覆盖</b>。当前空网格 63%（37/100 被覆盖），建议增加探索。</p>
+  </section>
+
+  <section>
+    <h2>参数重要性（Spearman |ρ|，n=40）</h2>
+    <div id="imp"></div>
+    <p class="muted small">相关 ≠ 因果；仅反映已采样区域。n&lt;20 时此卡应显示占位。</p>
+  </section>
+
+  <section class="wide">
+    <h2>建议批次（第 4 轮，8 点）</h2>
+    <table>
+      <thead><tr><th>#</th><th>temperature / degC</th><th>time_h / h</th><th>equiv / eq</th><th>conc / M</th><th>solvent</th><th>预测均值</th><th>预测σ</th><th>acq</th><th>最近距离</th><th>来源</th></tr></thead>
+      <tbody id="batchBody"></tbody>
+    </table>
+    <p class="row" style="margin-top:8px"><button id="copy">复制整批 TSV</button><span id="copyMsg" class="ok"></span></p>
+  </section>
+
+  <section class="wide">
+    <h2>AI 提案 <span class="tag ai">需人审 · gate</span></h2>
+    <p class="small">第 3 轮：<span class="k">acquisition logei → ucb</span>（κ 0.001 不变），reason_code=<span class="k">COVERAGE_GAP</span></p>
+    <p class="small">理由：第 2–3 轮 8 个建议点全部落在前 25% 高值区，3 个变量维度各有 ≥60% 区间未被采样；EI 收敛过早，改用 UCB(κ=2.0) 提升探索。</p>
+    <p class="small muted">证据：distinct_points=24，empty_grid_cells=63，best_so_far=0.83；包络校验 V01–V14 通过（演示）。</p>
+    <p class="row"><button class="primary" id="accept">接受并写审计</button><button id="reject">拒绝</button><span id="aiMsg" class="small"></span></p>
+  </section>
+
+  <section class="wide">
+    <h2>决策时间线（decisions.jsonl，最后 6 条）</h2>
+    <ol class="log" id="log"></ol>
+  </section>
+</main>
+
+<footer>单文件原型：零依赖、无网络、mock 数据；字段与 PROTOTYPE_PLAN §1.2/1.3 一致。双击打开即可，不连接服务。</footer>
+
+<script>
+"use strict";
+const PRESETS={quick:{budget:40,batch:4,rounds:8,init:8},normal:{budget:160,batch:8,rounds:18,init:16},thorough:{budget:640,batch:16,rounds:38,init:32}};
+const INTENTS={explore:{acq:"ucb",kappa:2.5,xi:0.05,local:0.1},exploit:{acq:"ei",kappa:1.0,xi:0.001,local:0.6}};
+const state={effort:"normal",intent:"exploit",...PRESETS.normal};
+const $=s=>document.querySelector(s);
+const NS="http://www.w3.org/2000/svg";
+const el=(t,a,c)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(c!=null)e.textContent=c;return e;};
+let seed=42; const rnd=()=>((seed=(seed*1664525+1013904223)>>>0)/4294967296);
+
+// ---- mock 数据（与真实 schema 对齐） ----
+const obs=[]; for(let i=1;i<=40;i++){const base=0.55+0.28*(1-Math.exp(-i/16));obs.push({i,y:base+0.02*Math.sin(i*1.7)+(rnd()-0.5)*0.03});}
+const best=[]; let b=-Infinity; obs.forEach(o=>{b=Math.max(b,o.y);best.push(b);});
+const batchX=[[61.2,5.4,2,0.31,"EtOH"],[38.0,2.1,4,0.52,"MeOH"],[72.4,6.8,1,0.18,"THF"],[45.5,4.2,3,0.74,"MeOH"],[55.9,7.5,5,0.09,"EtOH"],[28.7,1.3,2,0.88,"THF"],[66.3,3.6,3,0.41,"EtOH"],[49.1,5.9,4,0.63,"MeOH"]];
+const batchPred=[[0.842,0.031,0.0019],[0.821,0.044,0.0014],[0.815,0.039,0.0011],[0.809,0.052,0.0009],[0.801,0.048,0.0007],[0.795,0.066,0.0006],[0.790,0.041,0.0005],[0.784,0.057,0.0004]];
+const imp=[["temperature",0.62],["conc",0.48],["solvent",0.34],["time_h",0.21],["equiv",0.12]];
+const decisions=[{t:"14:20",k:"study_start",txt:"开始 study；preset=normal/exploit，config_hash=sha256:6f1c…"},
+ {t:"14:26",k:"router_suggest",txt:"router 打分：bayes 领先（dim 6≤12 +18、budget 24 +12）；confidence=high；备选 sobol"},
+ {t:"14:26",k:"ai_proposal",txt:"p-0007 L22 logei→ucb，COVERAGE_GAP，empty_grid_cells=63"},
+ {t:"14:26",k:"ai_accept",txt:"包络 V01–V14 通过；config_hash 6f1c…→8d2e…"},
+ {t:"14:31",k:"suggest_batch",txt:"第 4 轮 8 点，bayes/UCB(κ=2.0)，平均预测 0.807"},
+ {t:"14:40",k:"hitl_request",txt:"h-0012 待审：第 2 次覆写（L22）"}];
+
+// ---- 渲染 ----
+function fmt(x,d=0){return Number(x).toFixed(d);}
+function drawConv(){
+  const svg=$("#conv"); svg.textContent="";
+  const W=360,H=190,L=38,R=8,T=10,B=26, bw=W-L-R, bh=H-T-B;
+  const ys=obs.map(o=>o.y).concat([0.9]); const lo=Math.min(...ys)-0.02, hi=Math.max(...ys)+0.02;
+  const X=i=>L+(i-1)/(obs.length+7)*bw, Y=v=>T+bh-(v-lo)/(hi-lo)*bh;
+  [lo,(lo+hi)/2,hi].forEach((v,i)=>svg.appendChild(el("text",{x:4,y:Y(v)+4,"font-size":9,fill:"#69707d"},v.toFixed(2))));
+  svg.appendChild(el("line",{x1:L,y1:T+bh,x2:L+bw,y2:T+bh,stroke:"#c9cfd8"}));
+  svg.appendChild(el("line",{x1:L,y1:T,x2:L,y2:T+bh,stroke:"#c9cfd8"}));
+  obs.forEach(o=>svg.appendChild(el("circle",{cx:X(o.i),cy:Y(o.y),r:2.4,fill:"#9aa3af"})));
+  svg.appendChild(el("polyline",{points:best.map((v,i)=>X(i+1)+","+Y(v)).join(" "),fill:"none",stroke:"#2f6feb","stroke-width":2}));
+  batchPred.forEach((p,k)=>{const x=X(obs.length+2+k); const c=el("circle",{cx:x,cy:Y(p[0]),r:3.2,fill:"none",stroke:"#2f6feb"});svg.appendChild(c);
+    svg.appendChild(el("line",{x1:x,y1:Y(p[0]-p[1]),x2:x,y2:Y(p[0]+p[1]),stroke:"#2f6feb","stroke-dasharray":"2 2"}));});
+  svg.appendChild(el("text",{x:L+4,y:T+10,"font-size":10,fill:"#1d2330"},"best = "+best[best.length-1].toFixed(3)));
+  svg.appendChild(el("text",{x:L+4,y:T+24,"font-size":9,fill:"#69707d"},"下一批预测（空心）→ 右端"));
+  svg.appendChild(el("text",{x:L+bw-4,y:H-6,"font-size":9,fill:"#69707d","text-anchor":"end"},"评估次数 →"));
+}
+function drawCov(){
+  const svg=$("#cov"); svg.textContent=""; const n=10, cell=20, L=30, T=8;
+  const occ=new Set(); while(occ.size<37)occ.add(Math.floor(rnd()*100));
+  for(let y=0;y<n;y++)for(let x=0;x<n;x++){const idx=y*n+x, hit=occ.has(idx);
+    svg.appendChild(el("rect",{x:L+x*cell,y:T+y*cell,width:cell-1,height:cell-1,
+      fill:hit?"#7aa2f7":"#fff",stroke:hit?"#7aa2f7":"#d5dae3","stroke-width":hit?0:1}));}
+  for(let y=0;y<=n;y+=5)svg.appendChild(el("text",{x:4,y:T+y*cell+4,"font-size":8,fill:"#69707d"},String(y)));
+  for(let x=0;x<=n;x+=5)svg.appendChild(el("text",{x:L+x*cell-4,y:T+n*cell+14,"font-size":8,fill:"#69707d"},String(x)));
+}
+function drawImp(){
+  $("#imp").innerHTML=imp.map(([k,v])=>`<div class="imp-item"><span class="small">${k}</span>
+    <div class="imp-bar"><i style="width:${Math.round(v*100)}%"></i></div></div>`).join("");
+}
+function drawBatch(){
+  $("#batchBody").innerHTML=batchX.map((r,i)=>`<tr><td>${i+1}</td><td>${fmt(r[0],1)}</td><td>${fmt(r[1],1)}</td><td>${r[2]}</td>
+    <td>${fmt(r[3],2)}</td><td>${r[4]}</td><td>${fmt(batchPred[i][0],3)}</td><td>${fmt(batchPred[i][1],3)}</td>
+    <td>${batchPred[i][2]}</td><td>${fmt(0.03+i*0.01,2)}</td><td>bayes/router</td></tr>`).join("");
+}
+function drawLog(){
+  $("#log").innerHTML=decisions.map(d=>`<li><span class="muted">${d.t}</span> <span class="tag${d.k.includes("ai")||d.k==="hitl_request"?" ai":""}">${d.k}</span> ${d.txt}</li>`).join("");
+}
+function sync(){
+  $("#total").textContent=state.budget; $("#batch").value=state.batch; $("#rounds").value=state.rounds; $("#init").value=state.init;
+  $("#used").textContent=40; $("#usedbar").style.width=Math.min(100,40/state.budget*100)+"%";
+  $("#budgetNote").textContent=`剩余 ${Math.max(0,state.budget-40)} 次 · 预算 ${state.budget} 次`;
+  validate();
+}
+function validate(){
+  const batch=+$("#batch").value, rounds=+$("#rounds").value, init=+$("#init").value, total=state.budget;
+  const need=init+rounds*batch; const ok=need<=total && batch>=1 && batch<=64 && rounds>=1;
+  $("#valid").className=ok?"ok":"err";
+  $("#valid").textContent=ok?`✓ 初始 ${init} + ${rounds} 轮 × ${batch} = ${need}，预算 ${total}（X01 通过）`
+    :`✗ E005 预算组合不成立：初始 ${init} + ${rounds}×${batch} = ${need} > 总预算 ${total}；请降轮数或批大小`;
+}
+function addLog(kind,txt){const now=new Date();const t=now.toTimeString().slice(0,5);decisions.push({t,k:kind,txt});drawLog();}
+// ---- 事件 ----
+$("#effort").addEventListener("click",e=>{if(e.target.tagName!=="BUTTON")return;
+  [...$("#effort").children].forEach(b=>b.classList.toggle("on",b===e.target));
+  state.effort=e.target.dataset.v; Object.assign(state,PRESETS[state.effort]); sync();
+  addLog("study_update",`切换到 ${state.effort}/${state.intent}：预算 ${state.budget}、batch ${state.batch}、轮数 ${state.rounds}`);});
+$("#intent").addEventListener("click",e=>{if(e.target.tagName!=="BUTTON")return;
+  [...$("#intent").children].forEach(b=>b.classList.toggle("on",b===e.target));
+  state.intent=e.target.dataset.v; sync();
+  $("#intentNote").textContent=`intent=${state.intent==="explore"?"探索":"利用"} → acquisition=${INTENTS[state.intent].acq}，κ=${INTENTS[state.intent].kappa}，xi=${INTENTS[state.intent].xi}，local_frac=${INTENTS[state.intent].local}`;
+  addLog("study_update",`intent=${state.intent}`);});
+["batch","rounds","init"].forEach(id=>$("#"+id).addEventListener("input",validate));
+$("#algo").addEventListener("change",e=>addLog("study_update",`算法族=${e.target.value}${e.target.value!=="bayes"&&e.target.value!=="auto"?"（采集/代理线禁用）":""}`));
+$("#accept").addEventListener("click",()=>{$("#accept").disabled=true;$("#reject").disabled=true;
+  $("#aiMsg").textContent="已接受：写入 ai_accept（V01–V14 通过），下一轮生效。";$("#aiMsg").style.color="#1a8f5d";
+  addLog("ai_accept","p-0007 接受：L22 logei→ucb，config_hash 6f1c…→8d2e…");});
+$("#reject").addEventListener("click",()=>{$("#accept").disabled=true;$("#reject").disabled=true;
+  $("#aiMsg").textContent="已拒绝：写 ai_reject + human_reject，回退 base_decision d-0007。";$("#aiMsg").style.color="#c62828";
+  addLog("human_reject","p-0007 被拒绝：保持硬规则 logei；原因：样本仅 40 点，探索收益不确定");});
+$("#copy").addEventListener("click",()=>{const rows=batchX.map((r,i)=>[r[0],r[1],r[2],r[3],r[4],batchPred[i][0],batchPred[i][1]].join("\t")).join("\n");
+  navigator.clipboard?.writeText(rows).then(()=>{$("#copyMsg").textContent="已复制 8 行 TSV";setTimeout(()=>$("#copyMsg").textContent="",1500);})
+  .catch(()=>{$("#copyMsg").textContent="浏览器拒绝剪贴板（file:// 常见），请手动选择表格";});});
+drawConv();drawCov();drawImp();drawBatch();drawLog();sync();
+</script>
+</body>
+</html>

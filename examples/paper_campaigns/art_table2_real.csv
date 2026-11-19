@@ -1,0 +1,7 @@
+solvent,photocatalyst,ni_precursor,ni_ligand,amine,yield,source
+DMF,4CzIPN,Ni(PPh3)2Cl2,"4,4'-dimethoxy-2,2'-bpy",morpholine,99.0,literature-angew2026-table2
+NBP,(Ir[dF(CF3)ppy]2(bpy))PF6,Ni(PPh3)2Cl2,"4,4'-dimethoxy-2,2'-bpy",morpholine,95.0,literature-angew2026-table2
+NBP,3CzClIPN,Ni(PPh3)2Cl2,"1,10-phenanthroline",piperidine,91.0,literature-angew2026-table2
+NBP,4CzIPN,Ni(PPh3)2Cl2,"4,4'-dimethoxy-2,2'-bpy",morpholine,78.0,literature-angew2026-table2
+DMF,(Ir[dF(CF3)ppy]2(bpy))PF6,NiOTf2,"1,10-phenanthroline",morpholine,77.0,literature-angew2026-table2
+Anisole,4CzIPN,NiOTf2,"4,4'-dimethoxy-2,2'-bpy",morpholine,71.0,literature-angew2026-table2

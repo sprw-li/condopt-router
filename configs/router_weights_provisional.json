@@ -1,0 +1,54 @@
+{
+  "weights": {
+    "bayes": 1.575,
+    "constrained": 1.239,
+    "lhs": 0.666,
+    "mfbo": 0.685,
+    "qehvi": 1.35,
+    "random": 0.661,
+    "sobol": 0.608,
+    "tpe": 0.994
+  },
+  "in_sample_metrics": {
+    "top1": 0.8333333333333334,
+    "top2": 0.8333333333333334,
+    "mean_regret": 0.00165087322322765,
+    "n_problems": 12
+  },
+  "default_metrics": {
+    "top1": 0.16666666666666666,
+    "top2": 0.8333333333333334,
+    "mean_regret": 8.145972638552205,
+    "n_problems": 12
+  },
+  "lopo_metrics": {
+    "top1": 0.75,
+    "top2": 0.8333333333333334,
+    "mean_regret": 0.0015133004546253458,
+    "n_problems": 12
+  },
+  "labels": {
+    "branin": "bayes",
+    "sphere2d": "bayes",
+    "hartmann3": "sobol",
+    "mixed_reaction": "bayes",
+    "discrete_catalyst": "bayes",
+    "suzuki_like": "bayes",
+    "discrete_catalyst_v2": "lhs",
+    "high_cardinality_solvent": "random",
+    "constraint_easy": "constrained",
+    "constraint_hard": "constrained",
+    "moo_yield_cost": "qehvi",
+    "mf_suzuki": "mfbo"
+  },
+  "provisional": true,
+  "run": "runs/calibration_180 (12 problems x 8 algorithms x budget 8 x 4 seeds = 180 runs)",
+  "evidence": {
+    "default_top1": 0.1667,
+    "lopo_top1": 0.75,
+    "lopo_top2": 0.8333,
+    "default_regret": 8.146,
+    "lopo_regret": 0.0015
+  },
+  "note": "Provisional: strong LOPO gain, but 12 problems / 4 seeds is still small. Validate on the 488-run plan and record the source in decisions before shipping."
+}

@@ -1,0 +1,55 @@
+{
+  "note": "归档数字的单一事实源。docs/check_golden_numbers.py 会核对每条 doc 行里确实写着这个数字，--self-test 会把数字改坏并要求检查器变红。新增/修改默认值时必须在这里登记（含容差与来源）。",
+  "entries": [
+    {
+      "id": "mfparego_vs_momfbo_mfmoo",
+      "value": 670.72,
+      "tolerance": 0.05,
+      "unit": "可行 HV",
+      "doc": "docs/DEFAULT_EVIDENCE.json",
+      "line_hint": "mfparego 在 mf_moo",
+      "number_text": "670.72",
+      "claim": "mfparego_matches_or_beats_momfbo"
+    },
+    {
+      "id": "descriptor_coverage_single_objective",
+      "value": 0.875,
+      "tolerance": 0.001,
+      "unit": "可行率（描述符, constrained）",
+      "doc": "research/DESCRIPTOR_FEATURES.md",
+      "line_hint": "0.538 → 0.875",
+      "number_text": "0.875",
+      "claim": null
+    },
+    {
+      "id": "descriptor_hv_within_noise_t",
+      "value": -0.704,
+      "tolerance": 0.01,
+      "unit": "配对 t 统计量",
+      "doc": "research/NOISE_FLOOR.md",
+      "line_hint": "临界 2.776",
+      "number_text": "0.704",
+      "claim": "descriptor_hv_difference_is_not_detected"
+    },
+    {
+      "id": "budget_first_mf_constrained_90",
+      "value": 100.6,
+      "tolerance": 0.05,
+      "unit": "best（budget 90，预算优先）",
+      "doc": "research/MID_BUDGET.md",
+      "line_hint": "100.60",
+      "number_text": "100.60",
+      "claim": null
+    },
+    {
+      "id": "delivery_checklist_four_shapes",
+      "value": 8,
+      "tolerance": 0,
+      "unit": "交付自查通过数（4 形态 x 2 seeds）",
+      "doc": "research/DELIVERY_EVIDENCE.md",
+      "line_hint": "8/8",
+      "number_text": "8/8",
+      "claim": null
+    }
+  ]
+}

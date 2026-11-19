@@ -1,0 +1,18 @@
+{
+  "_note": "Approximate literature solvent properties (MW, dielectric constant, logP), hand-entered from CRC/PubChem-style tables for demonstration. Values for NBP, Rhodiasolv Polarclean, tert-amyl alcohol and 2-MeTHF are estimates; use a curated table for production.",
+  "_descriptor_names": ["mw", "dielectric", "logp"],
+  "descriptors": {
+    "DMF": [73.09, 36.7, -1.01],
+    "NBP": [141.19, 28.4, 0.65],
+    "Rhodiasolv Polarclean": [203.24, 30.0, -0.70],
+    "Acetonitrile": [41.05, 37.5, -0.34],
+    "Toluene": [92.14, 2.38, 2.73],
+    "Propylene carbonate": [102.09, 64.9, 0.0],
+    "Ethanol": [46.07, 24.5, -0.31],
+    "tert-amyl alcohol": [88.15, 5.8, 1.15],
+    "Anisole": [108.14, 4.33, 2.11],
+    "Ethyl acetate": [88.11, 6.02, 0.73],
+    "Isopropanol": [60.10, 19.9, 0.05],
+    "2-MeTHF": [86.13, 7.0, 1.85]
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "note": "source = real ART Table 2 measurements; target oracle = documented proxy",
+  "rows": [
+    {
+      "arm": "cold",
+      "seed": 0,
+      "audit": {
+        "ready": true,
+        "metric": "yield",
+        "n_target": 4,
+        "n_source": 6,
+        "n_compared": 6,
+        "confidence": "low",
+        "spearman_ci": {
+          "low": -0.6,
+          "high": 0.943,
+          "level": 0.9
+        },
+        "sample_warning": "只比较了 4 个条件：建议值噪声大，先补到 5 条以上再当依据",
+        "spearman": -0.086,
+        "spearman_robust": 0.086,
+        "normalized_mae": 1.1156,
+        "suggested_reliability": 0.3,
+        "suggested_reliability_point": 0.3,
+        "estimate": "bootstrap_median",
+        "reason": "一致性一般：建议折价先验（bootstrap 中位数 0.086）"
+      },
+      "transferred": 0,
+      "proxy_best": 83.4,
+      "rediscovered_real_best": false,
+      "n_proxy_evals": 16
+    },
+    {
+      "arm": "cold",
+      "seed": 1,
+      "audit": {
+        "ready": true,
+        "metric": "yield",
+        "n_target": 4,
+        "n_source": 6,
+        "n_compared": 6,
+        "confidence": "low",
+        "spearman_ci": {
+          "low": -0.771,
+          "high": 0.774,
+          "level": 0.9
+        },
+        "sample_warning": "只比较了 4 个条件：建议值噪声大，先补到 5 条以上再当依据",
+        "spearman": -0.429,
+        "spearman_robust": -0.143,
+        "normalized_mae": 1.8588,
+        "suggested_reliability": 0.3,
+        "suggested_reliability_point": 0.3,
+        "estimate": "bootstrap_median",
+        "reason": "一致性一般：建议折价先验（bootstrap 中位数 -0.143）"
+      },
+      "transferred": 0,
+      "proxy_best": 75.78,
+      "rediscovered_real_best": false,
+      "n_proxy_evals": 16
+    },
+    {
+      "arm": "warm",
+      "seed": 0,
+      "audit": {
+        "ready": true,
+        "metric": "yield",
+        "n_target": 4,
+        "n_source": 6,
+        "n_compared": 6,
+        "confidence": "low",
+        "spearman_ci": {
+          "low": -0.6,
+          "high": 0.943,
+          "level": 0.9
+        },
+        "sample_warning": "只比较了 4 个条件：建议值噪声大，先补到 5 条以上再当依据",
+        "spearman": -0.086,
+        "spearman_robust": 0.086,
+        "normalized_mae": 1.1156,
+        "suggested_reliability": 0.3,
+        "suggested_reliability_point": 0.3,
+        "estimate": "bootstrap_median",
+        "reason": "一致性一般：建议折价先验（bootstrap 中位数 0.086）"
+      },
+      "transferred": 3,
+      "proxy_best": 99.0,
+      "rediscovered_real_best": true,
+      "n_proxy_evals": 13
+    },
+    {
+      "arm": "warm",
+      "seed": 1,
+      "audit": {
+        "ready": true,
+        "metric": "yield",
+        "n_target": 4,
+        "n_source": 6,
+        "n_compared": 6,
+        "confidence": "low",
+        "spearman_ci": {
+          "low": -0.771,
+          "high": 0.774,
+          "level": 0.9
+        },
+        "sample_warning": "只比较了 4 个条件：建议值噪声大，先补到 5 条以上再当依据",
+        "spearman": -0.429,
+        "spearman_robust": -0.143,
+        "normalized_mae": 1.8588,
+        "suggested_reliability": 0.3,
+        "suggested_reliability_point": 0.3,
+        "estimate": "bootstrap_median",
+        "reason": "一致性一般：建议折价先验（bootstrap 中位数 -0.143）"
+      },
+      "transferred": 3,
+      "proxy_best": 99.0,
+      "rediscovered_real_best": true,
+      "n_proxy_evals": 13
+    }
+  ],
+  "cold_rediscovered": 0,
+  "warm_rediscovered": 2
+}

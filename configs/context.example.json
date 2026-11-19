@@ -1,0 +1,13 @@
+{
+  "budget_total": 24,
+  "batch_size": 4,
+  "noise": "medium",
+  "smoothness": "smooth",
+  "n_objectives": 1,
+  "n_constraints": 0,
+  "multi_fidelity": false,
+  "compute": "medium",
+  "domain": "chemistry",
+  "n_observations": 0,
+  "notes": "示例：6 维混合空间、24 次实验、每轮 4 个并行"
+}
