@@ -29,13 +29,30 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_EVAL = Path(r"<agent-library>/scripts/eval_router.py")
+#: 共享技能库里的路由评测脚本（不在本仓库内）；可用 CONDOPT_EVAL_SCRIPT 覆盖。
+#: 找不到时该门禁记为 skipped（不是 pass）。
+def _resolve_eval_script() -> Path:
+    override = os.environ.get("CONDOPT_EVAL_SCRIPT")
+    if override:
+        return Path(override).expanduser()
+    candidates = [Path.home() / "agent-library"]
+    if ROOT.drive:
+        candidates.append(Path(f"{ROOT.drive}/") / "agent-library")
+    for candidate in candidates:
+        script = candidate / "scripts" / "eval_router.py"
+        if script.exists():
+            return script
+    return candidates[0] / "scripts" / "eval_router.py"
+
+
+DEFAULT_EVAL = _resolve_eval_script()
 
 
 def _run(command: list[str], cwd: Path | None = None) -> tuple[int, str]:

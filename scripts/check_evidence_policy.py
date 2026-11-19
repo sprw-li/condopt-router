@@ -23,7 +23,19 @@ DEFAULTS = ROOT / "docs" / "DEFAULTS.md"
 POLICY = ROOT / "research" / "EVIDENCE_POLICY.md"
 
 #: paths that are referenced but are not expected to exist (external checkouts)
+#: anything that looks like a local absolute path, or a URL, is treated as an
+#: external citation rather than an in-repo reference.
 EXTERNAL_PREFIXES = ("http://", "https://")
+EXTERNAL_PATH = re.compile(r"^[A-Za-z]:[\\/]")
+
+
+def _is_external_path(path: str) -> bool:
+    """A URL, or a local absolute path (a drive-letter path outside this checkout).
+
+    Such citations point outside the repository on purpose, so they are counted but
+    not required to resolve inside the checkout.
+    """
+    return path.startswith(EXTERNAL_PREFIXES) or bool(EXTERNAL_PATH.match(path))
 
 
 def _rows() -> list[tuple[int, str]]:
@@ -173,7 +185,7 @@ def check() -> dict:
             continue  # not a provenance row
         evidence_cell = cells[-1]
         paths = re.findall(r"`([^`]+)`", evidence_cell)
-        paths = [p for p in paths if not p.startswith(EXTERNAL_PREFIXES)]
+        paths = [p for p in paths if not _is_external_path(p)]
         if not paths:
             problems.append(f"line {number}: no evidence path cited")
             continue

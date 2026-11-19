@@ -17,15 +17,39 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 PROJECT = Path(__file__).resolve().parents[1]
+def _resolve_shared_library(leaf: str) -> Path:
+    """Locate the shared skill library shipped outside this repository.
+
+    Order: ``CONDOPT_AGENT_LIBRARY`` override -> ``~/agent-library`` -> a sibling
+    ``agent-library`` on the same drive as this checkout.  Nothing is hard-coded to a
+    specific drive letter, so a clone on another machine simply falls back to the first
+    candidate (and the caller reports "not found" instead of inventing a path).
+    """
+    override = os.environ.get("CONDOPT_AGENT_LIBRARY")
+    if override:
+        return (Path(override).expanduser() / leaf).expanduser()
+    candidates = [Path.home() / "agent-library"]
+    if PROJECT.drive:
+        candidates.append(Path(f"{PROJECT.drive}/") / "agent-library")
+    for candidate in candidates:
+        # ``catalog/`` alone is not enough: a stale/partial library can have the
+        # directory but no registry, and installing into it silently fails later.
+        if (candidate / "catalog" / "intents.json").exists():
+            return candidate / leaf
+    return candidates[0] / leaf
+
+
 SKILL_MD = PROJECT / "skill" / "SKILL.md"
 REFERENCES = PROJECT / "skill" / "references"
-AGLIB = Path(r"<agent-library>")
+#: 共享技能库根目录：CONDOPT_AGENT_LIBRARY 覆盖，否则自动发现
+AGLIB = _resolve_shared_library("")
 CATALOG = AGLIB / "catalog"
 SKILL_ID = "condopt-router"
 
