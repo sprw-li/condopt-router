@@ -1,4 +1,4 @@
-# 会话状态（Round 309 结束 / 目标轮 311/320）
+# 会话状态（Round 310 结束 / 目标轮 312/320）
 
 > 新会话唯一上下文来源：只写结论与路径，细节在仓库里（都能用命令复现）。
 > 项目：`condopt` —— 实验条件优化“前置技术”（AI 全自动实验室），agent 用 skill `condopt-router` 选算法取样。
@@ -13,6 +13,8 @@
 
 - 公开仓库：**https://github.com/sprw-li/condopt-router**（336 文件 / 3.57 MB；文献原始语料不入库，可由 `scripts/literature_scan.py` 重生成）。
 - 发布验收口径：**必须在新克隆里跑 `py -3 -m pytest -q` 全绿**（本地全绿不算数）。
+- 去本机化（Round 310）：跟踪文件与**全部历史**已无本机盘符路径（40 → 0）；
+  共享技能库/eval 脚本路径改为可发现 + 环境变量覆盖；净化脚本见 `_work/sanitize_for_public.py`。
 
 ## 已完成
 

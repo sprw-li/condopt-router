@@ -3089,3 +3089,16 @@ skill 0 error/0 warning，本文记为最终证据。
 - **fresh-clone 验证抓到一个真问题**：`.gitignore` 曾整目录忽略 `research/literature_scan/`，而 `docs/LITERATURE_PIPELINE.md` 链接了该目录下的 `ROUTER_EXPERIENCE.md` / `APPLIED_CHANGES.md` → 克隆后 markdown 链接失效、`tests/test_release.py::test_docs_links_are_not_broken` 变红（本地因文件还在而发现不了）。
   改为“只忽略抓取产物，保留 4 个 md 笔记”后，**克隆内 585 个测试全绿、文档链接测试通过**。
 - 教训（值得沿用）：**发布物的验收必须在干净克隆里跑**，本地全绿不能证明仓库自足。
+## Round 310 (Lead) — 公开仓库的去本机化与历史重写
+
+- 公开后发现跟踪文件里有 40 处本机绝对路径（仓库路径、私有审查报告路径、共享技能库路径、
+  Python 安装路径），涉及 19 个文件 → 全部改为占位/相对路径；examples 里记录的 `run_dir` 变相对路径。
+- **代码改可移植（不只是换字符串）**：`install_skill.py` 的共享库根目录与 `release_check.py` 的
+  eval 脚本改为「环境变量 → `~/agent-library` → 同盘符兄弟目录」发现，并要求 `catalog/intents.json`
+  存在才接受候选（本机存在一个只有空 `catalog/` 的旧目录，曾误导发现）；
+  `check_evidence_policy.py` 的外部引用判定改为 URL/盘符正则（citations=57 不变）。
+- **历史重写**：4 个提交全部保留，但每个提交的树经 `git filter-branch --tree-filter` 净化；
+  丢弃 `refs/original`、清 reflog、gc 后 `git log -p --all` 中盘符路径命中 **40 → 0**；强制推送后远端一致。
+- 验收（新克隆）：文件与历史泄漏 **0/0**；`pytest` **exit 0（585）**；`release_check` **19/19**。
+- 说明：force-push 不会立即触发 GitHub 服务端 GC，重写前的对象可能在一段时间内仍可按 SHA 访问；
+  如需彻底清除需删库重建或联系 GitHub Support。
