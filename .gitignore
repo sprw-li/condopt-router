@@ -17,9 +17,11 @@ htmlcov/
 .coverage
 coverage.xml
 
-# 文献抓取的原始语料（约 12 MB，可由 scripts/literature_scan.py 重新生成；
-# 派生的权重/报告仍在仓库里）
-research/literature_scan/
+# 文献抓取的原始语料（约 12 MB，可由 scripts/literature_scan.py 重新生成）。
+# 注意：不能忽略整个目录——docs/LITERATURE_PIPELINE.md 链接了该目录下的
+# ROUTER_EXPERIENCE.md / APPLIED_CHANGES.md，忽略整目录会让这些链接在克隆后失效。
+research/literature_scan/**
+!research/literature_scan/*.md
 
 # 2026-11-05 的一次人工抢救副本，未被任何代码引用
 recover/
